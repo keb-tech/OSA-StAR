@@ -1,0 +1,35 @@
+.hidden{
+	display: none;
+}
+
+.error-message {
+	color: red;
+}
+
+.input-error {
+	border: 1px solid red;
+}
+
+.navbar-dashboard {
+	background-color: #000000!important;
+	
+}
+
+.sidebar-dashboard {
+	background-color: #FFEE58!important;
+}
+
+.navbar-dashboard a, .navbar-dashboard i {
+	color: #ffffff;
+}
+
+
+.user-dropdown-item {
+	color: black!important;
+}
+
+@font-face {
+    src: url('../../assets/fonts/PinyonScript-Regular.ttf');
+     font-family: "pinyon";
+     font-style: normal;
+}

@@ -1,0 +1,401 @@
+@extends('layouts.dashboard-master')
+@section('title')
+<title>Dashboard | Admin</title>
+@endsection
+
+@section('styles')
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.js"></script>
+
+@endsection
+@section('content')
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="dashboard">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Account Management</li>
+          </ol>
+
+          <!-- DataTables Example -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Account Management</div>
+            <div class="card-body">
+
+              <button type="button" id="btn-add-account" class="btn btn-primary">Add Account</button>
+              <div class="table-responsive mt-3">
+                <table class="table table-bordered dt-responsive" id="table-accounts" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th class="hidden">ID</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Email</th>
+                      <th>Student No.</th>
+                      <th>Role</th>
+                      <th>Date Created</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th class="hidden">ID</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Email</th>
+                      <th>Student No.</th>
+                      <th>Role</th>
+                      <th>Date Created</th>
+                      <th>Actions</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+
+      <!-- Modal -->
+    <div class="modal fade" id="add-account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Add New Account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-add" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                <form id="form-add-account">
+                  <div class="container my-2">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select type="select" id="select-role" class="form-control" name="role_id" required>
+                            </select>
+                        </div>
+                        <div class="form-group student-number-container hidden">
+                          <label>Student Number</label>
+                            <input type="text" class="form-control" id="student_number" name="student_number" required>
+                        </div>
+                        <div class="organization-container hidden">
+
+
+                        </div>
+                        <div class="form-row">
+                          <div class="col-md-6">
+                            <label>First name</label>
+                            <input type="text" class="form-control" name="first_name" required>
+                          </div>
+                          <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
+                          <div class="col-md-6">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" name="last_name" required>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                              <label>Email</label>
+                              <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                              <label>Password</label>
+                              <input type="text" class="form-control" id="password" name="password" readonly>
+                        </div>
+                        <div class="form-group text-right mt-4">
+                          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success btn-confirm-add-account">Add</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Edit Account -->
+        <div class="modal fade" id="edit-account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Edit Account Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-add" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                <form id="form-edit-account">
+                 <input type="hidden" name="_token" value="{{csrf_token()}}">
+                  <div class="container my-2">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select type="select" id="select-role" class="form-control edit_role select-role" name="role_id" required>
+                            </select>
+                        </div>
+                        <div class="form-group student-number-container hidden">
+                          <label>Student Number</label>
+                            <input type="text" class="form-control" id="edit_student_number" name="student_number" required>
+                        </div>
+                        <div class="organization-container hidden">
+
+
+                        </div>
+                        <div class="form-row">
+                          <div class="col-md-6">
+                            <label>First name</label>
+                            <input type="text" class="form-control" id="edit_first_name" name="first_name" required>
+                          </div>
+                          <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
+                          <div class="col-md-6">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" id="edit_last_name" name="last_name" required>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                              <label>Email</label>
+                              <input type="email" class="form-control" id="edit_email" name="email">
+                        </div>
+                        <div class="form-row">
+                        <label class="control-label">New Password <span class="required">*</span></label>
+                        <input type="password" id="new_password" name="new_password" minlength="6" class="form-control password" required>
+                        </div>
+                        <div class="form-row">
+                                <label class="control-label">Confirm New Password <span class="required">*</span></label>
+                                <input type="password" id="confirm_password" name="confirm_password" minlength="6" class="form-control password" required>
+                        </div>
+                        <div class="form-group text-right mt-4">
+                          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success btn-confirm-add-account">Update</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+@endsection
+@section('scripts')
+<script>  
+
+  function getRoles() {
+    $.ajax({
+      url: "/users/get-all-roles",
+      type: "GET",
+      success: function(data) {
+        var html = "<option value='' selected disabled>Select Role</option>";
+        $.each(data, function(x,y) {
+          html += '<option value="'+y.id+'">'+y.name+'</option>';
+        });
+        $('#select-role').html(html);
+      }
+    });
+  }
+
+  function getNewPassword() {
+    $.ajax({
+        type: 'GET',
+        url: '/user/get-new-password',
+        processData: false,
+        success: function(data) {
+        $('#password').val(data.password);
+        }
+      });
+  }
+
+  function appendOrganization() {
+    var html = "";
+
+    html += '<div class="form-group"> <label>Organization Name</label> <input type="text" class="form-control" name="organization_name" required> </div>';
+    html += '<div class="form-group"> <label>Organization Type</label> <select type="select" id="select-org-type" class="form-control" name="organization_type" required>'+
+    '<option value="" selected disabled>Select Organization Type</option>'+
+    '<option value="TYPE A">TYPE A</option>'+
+    '<option value="TYPE B">TYPE B</option>'+
+    '</select></div>';
+    html += '<div class="form-group"> <label>College</label> <select type="select" id="select-org-type" class="form-control" name="organization_college" required> <option value="" selected disabled>Select Organization Type</option> <option value="COLLEGE ONE">COLLEGE ONE</option> <option value="COLLEGE TWO">COLLEGE TWO</option> </select> </div>';
+    $('.organization-container').html(html);              
+  }
+
+  $(document).ready(function() {
+    getRoles();
+    var accounts;
+     $('#account-management').addClass('active');
+
+    accounts = $("#table-accounts").DataTable({
+        ajax: {
+          url: "/users/get-all-users",
+          dataSrc: ''
+        },
+        responsive:true,
+        "order": [[ 6, "desc" ]],
+        columns: [
+        { data: 'id'},
+        { data: 'first_name' },
+        { data: 'last_name' },
+        { data: 'email'},
+        { data: 'student_number'},
+        { data: 'role.name'},
+        { data: 'created_at'},
+        { data: null,
+          render: function ( data, type, row ) {
+            var html = "";
+            if (data.status == 1) {
+              html += '<span class="switch switch-sm"> <input type="checkbox" class="switch btn-change-status" id="'+data.id+'" data-id="'+data.id+'" data-status="'+data.status+'" checked> <label for="'+data.id+'"></label></span>';
+            } else {
+              html += '<span class="switch switch-sm"> <input type="checkbox" class="switch btn-change-status" id="'+data.id+'" data-id="'+data.id+'" data-status="'+data.status+'"> <label for="'+data.id+'"></label></span>';
+            }
+              html += "<button type='button' class='btn btn-primary btn-sm btn-edit-account' data-id='"+data.id+"' data-account='"+data.id+"'>Edit</button>";
+            
+            // <button type='button' class='btn btn-primary btn-sm btn-edit' data-id='"+data.id+"' data-account='"+data.id+"'>Edit</button> 
+            // html += "<button class='btn btn-danger btn-sm btn-delete' data-id='"+data.id+"' data-account='"+data.id+"'>Remove</button>";
+
+            return html;
+          } 
+        },
+        ],
+        columnDefs: [
+        { className: "hidden", "targets": [0]},
+         { "orderable": false, "targets": 7 }
+        ]
+    });
+
+    $(document).on('click', '#btn-add-account', function() {
+      $('#add-account-modal').modal('show');
+      getNewPassword();
+    });
+
+    $(document).on('change', '#select-role', function() {
+      var val = $(this).val();
+
+      if(val != 3){
+        $('.student-number-container').show();
+      }
+      else {
+        $('.student-number-container').hide();
+      }
+
+      if(val != 1){
+        $('.organization-container').html("");
+      }
+      else {
+        appendOrganization();
+        $('.organization-container').show();
+      }
+
+    });
+
+
+    $(document).on('submit', '#form-add-account', function() {
+       $.ajax({
+            url: "register",
+            type: "POST",
+            data: $(this).serialize(),
+            success: function(data) {
+              if (data.success === true) {
+                alert("Account Successfully Added!");
+                location.reload();
+              }
+              else {
+                alert("Something went wrong");
+              }
+            }
+          });
+            return false;
+    });
+
+    var chk;
+    $(document).on('change', '.btn-change-status', function(e) {
+      e.preventDefault();
+      chk = $(this);
+      var switch_status = $(this).attr('data-status');
+      var account_status = (switch_status == 1) ? 0 : 1;
+      var id  = $(this).attr('data-id');
+      var confirm_alert = (switch_status == 1) ? confirm("Are you sure you want to deactivate this account?") : confirm("Are you sure you want to activate this account?");
+        if (confirm_alert == true) {
+         $.ajax({
+              url: "/user/update-status",
+              type: "POST",
+              data: {
+                _token: "{{csrf_token()}}",
+                id: id,
+                status: account_status
+              },
+              success: function(data) {
+                if (data.success === true) {
+                  alert("Account Successfully Updated!");
+                  location.reload();
+                }
+              }
+
+            });
+        }
+        else {
+          if(chk.checked) {
+            chk.prop("checked", false);
+          }
+          else {
+            chk.prop("checked", true);
+          }
+        }
+    });
+    
+    $(document).on('click', '.btn-edit-account', function() {
+      $('#edit-account-modal').modal('show');
+      var id  = $(this).attr('data-id');
+      $('.btn-confirmedit').attr('data-id', id);
+      $('#select-role').html('show');
+      $.ajax({
+            url: "users/get-specific-user-info",
+            type: "POST",
+            data: {
+              id: id,
+              _token: "{{csrf_token()}}"
+            },
+            success: function(data) {
+              $('#edit_role').val(data.role_id);
+              $('#edit_first_name').val(data.first_name);
+              $('#edit_last_name').val(data.last_name);
+              $('#edit_email').val(data.email);
+              console.log(data);
+            }
+        });
+      });
+    
+  });
+</script>
+@endsection
