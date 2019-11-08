@@ -122,7 +122,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-7 offset-md-1">
+    <!-- <div class="col-md-7 offset-md-1">
       <div class="card card-login-info">
         <div class="card-body">
           <h4>What is Student Activities Records System?</h4>
@@ -224,7 +224,7 @@
       
     </div>
   </div>
-    </div>
+    </div> -->
     
 
   <!-- <footer class="footer">
