@@ -356,7 +356,8 @@ class EventController extends Controller
                 {
                     $event->socc_id = $user->id;
                     $event->status = Config::get('constants.event_status.osa_approval');
-                    $event->notes = $request->notes;
+                    // $event->notes = $request->notes;
+                    $event->notes = $request->input('notes');
                     $event->save();
                     return response()->json([
                         'success' => true,

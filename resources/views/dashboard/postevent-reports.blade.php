@@ -109,9 +109,18 @@
                             <input type="checkbox" class="eval-check">
                             <label class="form-check-label">Pictures of Event with Description</label>
                           </div>
+        
                           <div class="form-group mt-4">
-                            <textarea class="form-control" id="notes" name="notes" placeholder="Remarks:"></textarea>
+                            <textarea class="form-control" id="notes" name="notes" placeholder="Enter Remarks Here..."></textarea>
                           </div>
+
+                          <div class="form-group">
+                            <div class="form-group mt-4">
+                            <label>Previous Remarks Made</label>
+                            <textarea class="form-control" id="view_notes_socc" placeholder="There were no previous remarks." name="notes" readonly></textarea>
+                          </div>
+                        </div>   
+
                         <div class="form-group text-right mt-4">
                           <button type="button" class="btn btn-danger btn-socc-reject">For Completion</button>
                           <button type="button" class="btn btn-success btn-socc-endorse">Endorse</button>
@@ -188,8 +197,8 @@
 
                         <div class="form-group">
                             <div class="form-group mt-4">
-                            <label>Remarks:</label>
-                            <textarea class="form-control" id="edit_notes" name="notes" placeholder="Remarks:" readonly></textarea>
+                            <label>Evaluation Remarks:</label>
+                            <textarea class="form-control" id="edit_notes" name="notes" placeholder="There were no remarks made." readonly></textarea>
                           </div>
                         </div>   
 
@@ -318,6 +327,51 @@
           </div>
         </div>
       </div>
+
+<!-- OSA's Reevalution Modal -->
+<div class="modal fade" id="osa-notes-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Evaluation Reports</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-add" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                <form id="form-add-event">
+                   <input type="hidden" name="_token" value="{{csrf_token()}}">
+                  <div class="container my-2">
+                    <div class="row">
+                      <div class="col-md-12">
+
+                        <div class="form-group mt-4">
+                          <textarea class="form-control" id="enter_notes_osa" name="notes" placeholder="Enter Remarks Here"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-group mt-4">
+                            <label>SOCC Remarks</label>
+                            <textarea class="form-control" id="view_notes_osa" placeholder="There were no previous remarks." name="notes" readonly></textarea>
+                            </div>
+                        </div>   
+
+                        <div class="form-group text-right mt-4">
+                          <button type="button" class="btn btn-danger btn-osa-reject">For Reevaluation</button>
+                        </div>
+
+                    </div>
+                  </div>
+                </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
 
@@ -386,8 +440,8 @@
               @endif
               @if(auth()->user()->role_id == 3)
               if (data.status == 3) {
-                html += '<button type="button" class="btn btn-success btn-approve" data-id="'+data.id+'">Approve</button> ';
-                html += '<button type="button" class="btn btn-danger btn-reject" data-id="'+data.id+'">For Reevaluation</button> ';
+                html += '<button type="button" class="btn btn-success btn-osa-approve" data-id="'+data.id+'">Approve</button> ';
+                html += '<button type="button" class="btn btn-danger btn-notes-reject" data-id="'+data.id+'">For Reevaluation</button> ';
               }
 
 
@@ -542,7 +596,7 @@
       $(document).on('click', '.btn-edit-project', function() {
         var id = $(this).attr('data-id');
         $('#btn-update-event').attr('data-id', id);
-      $('#update-project-modal').modal('show');
+        $('#update-project-modal').modal('show');
 
       $.ajax({
             url: "/events/get-specific-event",
@@ -560,6 +614,7 @@
               $('#edit_classification').val(data.classification);
               $('#edit_date_submitted').val(data.updated_at);
               $('#edit_notes').val(data.notes);
+              console.log(data);
 
             }
 
@@ -602,6 +657,48 @@
         $('#eval-report-modal').modal('show');
         $('.btn-socc-endorse').attr('data-id', id);
         $('.btn-socc-reject').attr('data-id', id);
+
+        $.ajax({
+            url: "/events/get-specific-event",
+            type: "POST",
+            data: {
+              id: id,
+              _token: "{{csrf_token()}}"
+            },
+            success: function(data) {
+        
+              $('#view_notes_socc').val(data.notes);
+              
+            }
+        });
+      });
+
+      $(document).on('click', '.btn-notes-reject', function() {
+        var id  = $(this).attr('data-id')
+        var notes = $('#notes').val();
+
+        if (current_event_id == null) {
+          current_event_id = id;
+        }
+
+        $('#osa-notes-modal').modal('show');
+        $('.btn-osa-reject').attr('data-id', id);
+
+        $.ajax({
+            url: "/events/get-specific-event",
+            type: "POST",
+            data: {
+              id: id,
+              _token: "{{csrf_token()}}"
+            },
+            success: function(data) {
+        
+              $('#view_notes_osa').val(data.notes);
+              console.log(data);
+            }
+            
+
+          });
       });
 
       $(document).on('click', '.btn-socc-endorse', function() {
@@ -614,7 +711,7 @@
         });
 
         if (ctr != 0) {
-          alert('Requirements is not complete. Event cannot be endorsed to OSA.');
+          alert('Requirements are not complete. Event cannot be endorsed to OSA.');
           return  false;
 
         }
@@ -645,7 +742,7 @@
       $(document).on('click', '.btn-socc-reject', function() {
         var id = $(this).attr('data-id');
         var notes = $('#notes').val();
-        var confirm_alert = confirm("Are you sure you want to reject this event?");
+        var confirm_alert = confirm("Are you sure you want to return this event to the organizer for completion?");
         if (confirm_alert == true) {
           $.ajax({
             url: "/events/reject",
@@ -657,7 +754,7 @@
             },
             success: function(data) {
               if (data.success === true) {
-                alert("Event Successfully Rejected!");
+                alert("Event Successfully Returned!");
                 location.reload();
               }
               else {
@@ -695,9 +792,9 @@
         }
       });
 
-      $(document).on('click', '.btn-approve', function() {
+      $(document).on('click', '.btn-osa-approve', function() {
         var id = $(this).attr('data-id');
-        var notes = $('#notes').val();
+        // var notes = $('#notes').val();
         var confirm_alert = confirm("Are you sure you want to approve this event?");
         if (confirm_alert == true) {
           $.ajax({
@@ -705,7 +802,6 @@
             type: "POST",
             data: {
               id: id,
-              notes: notes,
               _token: "{{csrf_token()}}"
             },
             success: function(data) {
@@ -722,20 +818,49 @@
         }
       });
 
-      $(document).on('click', '.btn-reject', function() {
+      $(document).on('click', '.btn-osa-reject', function() {
         var id = $(this).attr('data-id');
-        var confirm_alert = confirm("Are you sure you want to return this event?");
+        var notes = $('#enter_notes_osa').val();
+        var confirm_alert = confirm("Are you sure you want to return this event to SOCC for reevaluation?");
         if (confirm_alert == true) {
           $.ajax({
             url: "/events/reject",
             type: "POST",
             data: {
               id: id,
+              notes: notes,
               _token: "{{csrf_token()}}"
             },
             success: function(data) {
               if (data.success === true) {
-                alert("Event Successfully Rejected!");
+                alert("Event Successfully Returned!");
+                location.reload();
+              }
+              else {
+                alert(data.error);
+              }
+            }
+
+          });
+        }
+      });
+
+            $(document).on('click', '.btn-socc-reject', function() {
+        var id = $(this).attr('data-id');
+        var notes = $('#notes').val();
+        var confirm_alert = confirm("Are you sure you want to return this event to the organizer for completion?");
+        if (confirm_alert == true) {
+          $.ajax({
+            url: "/events/reject",
+            type: "POST",
+            data: {
+              id: id,
+              notes: notes,
+              _token: "{{csrf_token()}}"
+            },
+            success: function(data) {
+              if (data.success === true) {
+                alert("Event Successfully Returned!");
                 location.reload();
               }
               else {
