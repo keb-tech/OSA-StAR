@@ -221,7 +221,7 @@
 
  <!-- Modal -->
     <div class="modal hide fade" id="project-info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLongTitle">Project Information</h5>
@@ -568,6 +568,11 @@
         if (status == 2) {
           $('.btn-view-checklist').attr('data-id', id);
           $('.btn-view-checklist').show();
+
+        } else if (status == 5) {
+          $('.btn-view-checklist').attr('data-id', id);
+          $('.btn-view-checklist').show();
+
         } else {
           $('.btn-view-checklist').hide();
         }
