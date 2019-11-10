@@ -91,14 +91,15 @@
                             <select type="select" id="select-role" class="form-control" name="role_id" required>
                             </select>
                         </div>
+
                         <div class="form-group student-number-container hidden">
                           <label>Student Number</label>
                             <input type="text" class="form-control" id="student_number" name="student_number" required>
                         </div>
                         <div class="organization-container hidden">
-
-
+                        
                         </div>
+
                         <div class="form-row">
                           <div class="col-md-6">
                             <label>First name</label>
@@ -157,17 +158,19 @@
                       <div class="col-md-12">
                         <div class="form-group">
                             <label>Role</label>
-                            <select type="select" id="select-role" class="form-control edit_role select-role" name="role_id" required>
+                            <select type="select" id="update-role" class="form-control edit_role update-role" name="role_id" required>
                             </select>
                         </div>
+
                         <div class="form-group student-number-container hidden">
                           <label>Student Number</label>
                             <input type="text" class="form-control" id="edit_student_number" name="student_number" required>
                         </div>
                         <div class="organization-container hidden">
-
-
+                        <label>Organization Name</label>
+                            <input type="text" class="form-control" id="edit_organization_name" name="organization_name" required>
                         </div>
+
                         <div class="form-row">
                           <div class="col-md-6">
                             <label>First name</label>
@@ -179,21 +182,15 @@
                             <input type="text" class="form-control" id="edit_last_name" name="last_name" required>
                           </div>
                         </div>
+
                         <div class="form-group">
                               <label>Email</label>
                               <input type="email" class="form-control" id="edit_email" name="email">
                         </div>
-                        <div class="form-row">
-                        <label class="control-label">New Password <span class="required">*</span></label>
-                        <input type="password" id="new_password" name="new_password" minlength="6" class="form-control password" required>
-                        </div>
-                        <div class="form-row">
-                                <label class="control-label">Confirm New Password <span class="required">*</span></label>
-                                <input type="password" id="confirm_password" name="confirm_password" minlength="6" class="form-control password" required>
-                        </div>
+
                         <div class="form-group text-right mt-4">
                           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-success btn-confirm-add-account">Update</button>
+                          <button type="submit" class="btn btn-success btn-confirm-edit-account">Update</button>
                         </div>
                       </div>
                     </div>
@@ -223,6 +220,7 @@
           html += '<option value="'+y.id+'">'+y.name+'</option>';
         });
         $('#select-role').html(html);
+        $('#update-role').html(html);
       }
     });
   }
@@ -242,12 +240,12 @@
     var html = "";
 
     html += '<div class="form-group"> <label>Organization Name</label> <input type="text" class="form-control" name="organization_name" required> </div>';
-    html += '<div class="form-group"> <label>Organization Type</label> <select type="select" id="select-org-type" class="form-control" name="organization_type" required>'+
-    '<option value="" selected disabled>Select Organization Type</option>'+
-    '<option value="TYPE A">TYPE A</option>'+
-    '<option value="TYPE B">TYPE B</option>'+
-    '</select></div>';
-    html += '<div class="form-group"> <label>College</label> <select type="select" id="select-org-type" class="form-control" name="organization_college" required> <option value="" selected disabled>Select Organization Type</option> <option value="COLLEGE ONE">COLLEGE ONE</option> <option value="COLLEGE TWO">COLLEGE TWO</option> </select> </div>';
+    // html += '<div class="form-group"> <label>Organization Type</label> <select type="select" id="select-org-type" class="form-control" name="organization_type" required>'+
+    // '<option value="" selected disabled>Select Organization Type</option>'+
+    // '<option value="TYPE A">TYPE A</option>'+
+    // '<option value="TYPE B">TYPE B</option>'+
+    // '</select></div>';
+    // html += '<div class="form-group"> <label>College</label> <select type="select" id="select-org-type" class="form-control" name="organization_college" required> <option value="" selected disabled>Select Organization Type</option> <option value="COLLEGE ONE">COLLEGE ONE</option> <option value="COLLEGE TWO">COLLEGE TWO</option> </select> </div>';
     $('.organization-container').html(html);              
   }
 
@@ -319,6 +317,26 @@
 
     });
 
+    $(document).on('change', '#update-role', function() {
+      var val = $(this).val();
+
+      if(val != 3){
+        $('.student-number-container').show();
+      }
+      else {
+        $('.student-number-container').hide();
+      }
+
+      if(val != 1){
+        $('.organization-container').hide();
+      }
+      else {
+        // appendOrganization();
+        $('.organization-container').show();
+      }
+
+    });
+
 
     $(document).on('submit', '#form-add-account', function() {
        $.ajax({
@@ -328,6 +346,24 @@
             success: function(data) {
               if (data.success === true) {
                 alert("Account Successfully Added!");
+                location.reload();
+              }
+              else {
+                alert("Something went wrong");
+              }
+            }
+          });
+            return false;
+    });
+
+    $(document).on('submit', '#form-edit-account', function() {
+       $.ajax({
+            url: "update",
+            type: "POST",
+            data: $(this).serialize(),
+            success: function(data) {
+              if (data.success === true) {
+                alert("Account Successfully Updated!");
                 location.reload();
               }
               else {
@@ -378,7 +414,6 @@
       $('#edit-account-modal').modal('show');
       var id  = $(this).attr('data-id');
       $('.btn-confirmedit').attr('data-id', id);
-      $('#select-role').html('show');
       $.ajax({
             url: "users/get-specific-user-info",
             type: "POST",
@@ -387,10 +422,12 @@
               _token: "{{csrf_token()}}"
             },
             success: function(data) {
-              $('#edit_role').val(data.role_id);
+              $('#update-role').val(data.role_id);
               $('#edit_first_name').val(data.first_name);
               $('#edit_last_name').val(data.last_name);
               $('#edit_email').val(data.email);
+              $('#edit_organization_name').val(data.organization_name);
+              $('#edit_student_number').val(data.student_number);
               console.log(data);
             }
         });
