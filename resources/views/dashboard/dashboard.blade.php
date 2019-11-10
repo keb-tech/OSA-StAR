@@ -37,12 +37,12 @@
         <div class="container-fluid">
 
           <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
+          <!-- <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a href="dashboard">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Projects</li>
-          </ol>
+            <li class="breadcrumb-item active">Project</li>
+          </ol> -->
 
           <!-- DataTables Example -->
           <div class="card mb-3">
@@ -55,14 +55,14 @@
               @if(auth()->user()->role_id == 1)
         <nav class="mt-3">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-events-tab" data-toggle="tab" href="#nav-events" role="tab" aria-controls="nav-events" aria-selected="true">Events/Projects</a>
+              <a class="nav-item nav-link active" id="nav-events-tab" data-toggle="tab" href="#nav-events" role="tab" aria-controls="nav-events" aria-selected="true">Events</a>
               <a class="nav-item nav-link" id="nav-students-tab" data-toggle="tab" href="#nav-students" role="tab" aria-controls="nav-students" aria-selected="true">Student Participants</a>
               <a class="nav-item nav-link" id="nav-speakers-tab" data-toggle="tab" href="#nav-speakers" role="tab" aria-controls="nav-speakers" aria-selected="false">Event Speakers</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
           <div class="tab-pane fade show active" id="nav-events" role="tabpanel" aria-labelledby="nav-events-tab">
-          <button type="button" id="btn-add-project" class="btn btn-primary my-3">Add Project</button>
+          <button type="button" id="btn-add-project" class="btn btn-primary my-3">Add Event</button>
             <div class="tab-events">
               <div class="table-responsive mt-3">
                 <table class="table table-bordered dt-responsive" id="table-projects" width="100%" cellspacing="0">
@@ -131,7 +131,7 @@
                   <thead>
                     <tr>
                       <th class="hidden">ID</th>
-                      <th>Event Name</th>
+                      <th>Event Title</th>
                       <th>Speaker Name</th>
                       <th>Date Created</th>
                       <th>Actions</th>
@@ -140,7 +140,7 @@
                   <tfoot>
                     <tr>
                       <th class="hidden">ID</th>
-                      <th>Event Name</th>
+                      <th>Event Title</th>
                       <th>Speaker Name</th>
                       <th>Date Created</th>
                       <th>Actions</th>
@@ -195,7 +195,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Add New Project</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Add New Event</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

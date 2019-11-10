@@ -16,12 +16,12 @@
         <div class="container-fluid">
 
           <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
+          <!-- <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a href="dashboard">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Student List</li>
-          </ol>
+          </ol> -->
 
           <!-- DataTables Example -->
           <div class="card mb-3">

@@ -15,18 +15,18 @@
         <div class="container-fluid">
 
           <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
+          <!-- <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a href="dashboard">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Post Event Reports</li>
-          </ol>
+          </ol> -->
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Post Event Reports</div>
+              Post-event Reports</div>
             <div class="card-body">
               <div class="table-responsive mt-3">
                 <table class="table table-bordered dt-responsive" id="table-reports" width="100%" cellspacing="0">
@@ -34,7 +34,7 @@
                     <tr>
                       <th class="hidden">ID</th>
                       <th>eReserve Number</th>
-                      <th>Event Name</th>
+                      <th>Event Title</th>
                       <th>Date Submitted</th>
                       <th>Status</th>
                       <th>Actions</th>
@@ -44,7 +44,7 @@
                     <tr>
                       <th class="hidden">ID</th>
                       <th>eReserve Number</th>
-                      <th>Event Name</th>
+                      <th>Event Title</th>
                       <th>Date Submitted</th>
                       <th>Status</th>
                       <th>Actions</th>
