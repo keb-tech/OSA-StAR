@@ -122,6 +122,24 @@
         </div>
       </div>
     </div>
+    <div class="col-md-7 offset-md-1">
+      <div class="card card-login-info">
+        <div class="card-body">
+       
+    <!-- <div class="tab-pane fade show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
+            <div class="tab-info"> -->
+              <h4><u>About</u></h4>
+              <h6 class="text-justify">
+              The Student Activities Records stores all student participants in the university-wide student organizations seminars/workshops and can generate a summary of participation of a student during their stay in the university for future reference.</h6>
+              
+              <h6 class="text-justify">
+              To acquire a certificate, the student / alumni should go to the Office for Student Affairs to file a request.
+              </h6>
+            </div>
+            </div>
+            </div>
+            </div>
+           
     <!-- <div class="col-md-7 offset-md-1">
       <div class="card card-login-info">
         <div class="card-body">
@@ -226,7 +244,7 @@
   </div>
     </div> -->
     
-
+ 
   <!-- <footer class="footer">
       <div class="container text-center">
         <span class="footer-copyright">Copyright</span>
