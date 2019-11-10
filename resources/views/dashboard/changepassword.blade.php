@@ -4,7 +4,10 @@
 @endsection
 
 @section('styles')
-
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.js"></script>
 @endsection
 @section('content')
      <div id="content-wrapper">
@@ -12,12 +15,18 @@
         <div class="container-fluid">
 
           <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
+          <!-- <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a href="dashboard">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Change Password</li>
-          </ol>
+          </ol> -->
+ <div class="card mb-3">
+            <div class="card-header">
+              <!-- <i class="fas fa-table"></i> -->
+              <i class="fas fa-lock"></i>
+              Change Password</div>
+            <div class="card-body">
 
 <div class="container">
         <div class="row">
