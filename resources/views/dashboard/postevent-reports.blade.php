@@ -635,7 +635,7 @@
             data: $(this).serialize()+"&status="+2+"&id="+$('#btn-update-event').attr('data-id'),
             success: function(data) {
               if (data.success === true) {
-                alert("Participant Successfully Updated!");
+                alert("Project Successfully Updated!");
                 location.reload();
               }
               else {
