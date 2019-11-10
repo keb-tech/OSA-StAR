@@ -561,7 +561,7 @@
           render: function ( data, type, row ) { 
             var html = "";
             //html += '<button type="button" class="btn btn-primary">Edit</button> ';
-            html += '<button type="button" class="btn btn-danger btn-delete">Remove</button>';
+            html += '<button type="button" class="btn btn-danger btn-delete" data-event="'+data.event_id+'" data-student="'+data.student_id+'">Remove</button>';
             return html;
           } 
         }
@@ -598,12 +598,15 @@
     $(document).on('click', '.btn-delete', function() {
       var confirm_alert = confirm("Are you sure you want to delete this participant?");
       if (confirm_alert == true) {
-       var id  = $(this).attr('data-id');
+      //  var id  = $(this).attr('data-id');
+       var event_id  = $(this).attr('data-event');
+       var student_id  = $(this).attr('data-student');
        $.ajax({
             url: "participant/delete",
             type: "DELETE",
             data: {
-              id: id,
+              event_id: event_id,
+              student_id: student_id,
               _token: "{{csrf_token()}}"
             },
             success: function(data) {
