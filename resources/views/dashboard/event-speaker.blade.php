@@ -36,7 +36,7 @@
                   <thead>
                     <tr>
                       <th class="hidden">ID</th>
-                      <th>Event Name</th>
+                      <th>Event Title</th>
                       <th>Speaker Name</th>
                       <th>Date Created</th>
                       <th>Actions</th>
@@ -45,7 +45,7 @@
                   <tfoot>
                     <tr>
                       <th class="hidden">ID</th>
-                      <th>Event Name</th>
+                      <th>Event Title</th>
                       <th>Speaker Name</th>
                       <th>Date Created</th>
                       <th>Actions</th>

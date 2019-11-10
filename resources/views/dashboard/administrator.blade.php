@@ -12,12 +12,19 @@
         <div class="container-fluid">
 
           <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
+          <!-- <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a href="dashboard">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Administrator</li>
-          </ol>
+          </ol> -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <!-- <i class="fas fa-table"></i> -->
+              <i class="fas fa-user-tie"></i>
+              Administrator</div>
+            <div class="card-body">
+
 
 <div class="container">
         <div class="row">

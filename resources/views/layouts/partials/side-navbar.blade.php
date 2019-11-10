@@ -8,7 +8,7 @@
         <li id="post-event-reports" class="nav-item">
           <a class="nav-link" href="post-event-reports">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Projects</span>
+            <span>Post-event Reports</span>
           </a>
         </li>
         @if(auth()->user()->role_id == 3)
@@ -16,21 +16,23 @@
 
         <li id="search" class="nav-item">
             <a class="nav-link" href="search">
-              <i class="fas fa-fw fa-user"></i>
+              <i class="fas fa-fw fa-search"></i>
               <span>Search</span></a>
           </li>
         </li>
 
         <li id="account-management" class="nav-item">
             <a class="nav-link" href="account-management">
-              <i class="fas fa-fw fa-user"></i>
-              <span>Account Management</span></a>
+              <!-- <i class="fas fa-fw fa-user"></i> -->
+              <i class="fas fa-users-cog"></i>
+              <span>Accounts Management</span></a>
           </li>
         </li>
 
         <li id="administrator" class="nav-item">
             <a class="nav-link" href="administrator">
-              <i class="fas fa-fw fa-user"></i>
+              <!-- <i class="fas fa-fw fa-user"></i> -->
+              <i class="fas fa-user-tie"></i>
               <span>Administrator</span></a>
           </li>
         </li>
@@ -40,14 +42,16 @@
         @if(auth()->user()->role_id == 1)
         <li id="student-list" class="nav-item">
           <a class="nav-link" href="student-list">
-            <i class="fas fa-fw fa-table"></i>
+            <!-- <i class="fas fa-fw fa-table"></i> -->
+            <i class="fas fa-th-list"></i>
             <span>Student List</span>
           </a>
         </li>
 
         <li id="speaker-list" class="nav-item">
           <a class="nav-link" href="speaker-list">
-            <i class="fas fa-fw fa-table"></i>
+            <!-- <i class="fas fa-fw fa-table"></i> -->
+            <i class="fas fa-microphone"></i>
             <span>Speaker List</span>
           </a>
         </li>

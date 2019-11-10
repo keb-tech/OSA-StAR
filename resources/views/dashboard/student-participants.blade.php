@@ -222,7 +222,7 @@
       if (confirm_alert == true) {
        var id  = $(this).attr('data-id');
        $.ajax({
-            url: "participant/delete",
+            url: "/participant/delete",
             type: "DELETE",
             data: {
               id: id,

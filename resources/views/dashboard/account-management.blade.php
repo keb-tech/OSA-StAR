@@ -16,18 +16,18 @@
         <div class="container-fluid">
 
           <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
+          <!-- <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a href="dashboard">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Account Management</li>
-          </ol>
+          </ol> -->
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
               <i class="fas fa-table"></i>
-              Account Management</div>
+              Accounts Management</div>
             <div class="card-body">
 
               <button type="button" id="btn-add-account" class="btn btn-primary">Add Account</button>
