@@ -433,7 +433,7 @@
               var html = "";
               html += '<button type="button" class="btn btn-warning btn-see-report" data-status="'+data.status+'" data-id="'+data.id+'">See Report</button> ';
               @if(auth()->user()->role_id == 1)
-              if (data.status == 4 || data.status == 5) {
+              if (data.status == 4) {
                 html += '<button type="button" class="btn btn-info btn-edit-project" data-status="'+data.status+'" data-id="'+data.id+'">Edit</button> ';
               }
 
@@ -850,37 +850,35 @@
         }
       });
 
-            $(document).on('click', '.btn-socc-reject', function() {
-        var id = $(this).attr('data-id');
-        var notes = $('#notes').val();
-        var confirm_alert = confirm("Are you sure you want to return this event to the organizer for completion?");
-        if (confirm_alert == true) {
-          $.ajax({
-            url: "/events/reject",
-            type: "POST",
-            data: {
-              id: id,
-              notes: notes,
-              _token: "{{csrf_token()}}"
-            },
-            success: function(data) {
-              if (data.success === true) {
-                alert("Event Successfully Returned!");
-                location.reload();
-              }
-              else {
-                alert(data.error);
-              }
-            }
+      //   $(document).on('click', '.btn-socc-reject', function() {
+      //   var id = $(this).attr('data-id');
+      //   var notes = $('#notes').val();
+      //   var confirm_alert = confirm("Are you sure you want to return this event to the organizer for completion?");
+      //   if (confirm_alert == true) {
+      //     $.ajax({
+      //       url: "/events/reject",
+      //       type: "POST",
+      //       data: {
+      //         id: id,
+      //         notes: notes,
+      //         _token: "{{csrf_token()}}"
+      //       },
+      //       success: function(data) {
+      //         if (data.success === true) {
+      //           alert("Event Successfully Returned!");
+      //           location.reload();
+      //         }
+      //         else {
+      //           alert(data.error);
+      //         }
+      //       }
 
-          });
-        }
-      });
-
-  });
-
+      //     });
+      //   }
+      // });
 
   });
+});
  
 </script>
 @endsection
