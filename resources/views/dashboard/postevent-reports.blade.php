@@ -417,7 +417,7 @@
               }
 
               else if (data.status == 5) {
-                status_name = "<span class='badge badge-danger'>For Reevaluation</span>";
+                status_name = "<span class='badge badge-reeval'>For Reevaluation</span>";
               }
               else if (data.status == 7) {
                 status_name = "<span class='badge badge-success'>OSA Approved</span>";
@@ -433,7 +433,7 @@
               var html = "";
               html += '<button type="button" class="btn btn-warning btn-see-report" data-status="'+data.status+'" data-id="'+data.id+'">See Report</button> ';
               @if(auth()->user()->role_id == 1)
-              if (data.status == 4 || data.status == 5) {
+              if (data.status == 4) {
                 html += '<button type="button" class="btn btn-info btn-edit-project" data-status="'+data.status+'" data-id="'+data.id+'">Edit</button> ';
               }
 
