@@ -67,7 +67,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Evaluation Reports</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Evaluation Reports Checklist</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -142,7 +142,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Edit Project</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Edit Event Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -224,7 +224,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Project Information</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Event Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -333,7 +333,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Evaluation Reports</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Reevaluation Remarks </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -417,7 +417,7 @@
               }
 
               else if (data.status == 5) {
-                status_name = "<span class='badge badge-danger'>For Reevaluation</span>";
+                status_name = "<span class='badge badge-reeval'>For Reevaluation</span>";
               }
               else if (data.status == 7) {
                 status_name = "<span class='badge badge-success'>OSA Approved</span>";
@@ -635,7 +635,7 @@
             data: $(this).serialize()+"&status="+2+"&id="+$('#btn-update-event').attr('data-id'),
             success: function(data) {
               if (data.success === true) {
-                alert("Project Successfully Updated!");
+                alert("Event details Successfully Updated!");
                 location.reload();
               }
               else {

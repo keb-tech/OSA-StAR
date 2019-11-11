@@ -197,7 +197,7 @@
     $(document).on('click', '.btn-edit', function() {
       var data = speakers.row( $(this).parents('tr') ).data();
       $('.form-speaker').attr('id', 'form-edit-speaker');
-      $('.speaker-modal-title').html('Edit Speaker');
+      $('.speaker-modal-title').html('Edit Speaker Details');
       $('#first_name').val(data.first_name);
       $('#last_name').val(data.last_name);
       $('.btn-confirm').attr('data-id', data.id);
