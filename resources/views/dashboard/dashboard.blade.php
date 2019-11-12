@@ -453,27 +453,27 @@
             return false;
     });
 
-    $(document).on('click', '.btn-delete', function() {
-      var confirm_alert = confirm("Are you sure you want to delete this event?");
-      if (confirm_alert == true) {
-       var id  = $(this).attr('data-id');
-       $.ajax({
-            url: "events/delete",
-            type: "DELETE",
-            data: {
-              id: id,
-              _token: "{{csrf_token()}}"
-            },
-            success: function(data) {
-              if (data.success === true) {
-                alert("Event Successfully Deleted!");
-                location.reload();
-              }
-            }
+    // $(document).on('click', '.btn-delete', function() {
+    //   var confirm_alert = confirm("Are you sure you want to delete this event?");
+    //   if (confirm_alert == true) {
+    //    var id  = $(this).attr('data-id');
+    //    $.ajax({
+    //         url: "events/delete",
+    //         type: "DELETE",
+    //         data: {
+    //           id: id,
+    //           _token: "{{csrf_token()}}"
+    //         },
+    //         success: function(data) {
+    //           if (data.success === true) {
+    //             alert("Event Successfully Deleted!");
+    //             location.reload();
+    //           }
+    //         }
 
-          });
-      }
-    });
+    //       });
+    //   }
+    // });
 
 
  // Student Participants scripts
@@ -561,7 +561,7 @@
           render: function ( data, type, row ) { 
             var html = "";
             //html += '<button type="button" class="btn btn-primary">Edit</button> ';
-            html += '<button type="button" class="btn btn-danger btn-delete" data-event="'+data.event_id+'" data-student="'+data.student_id+'">Remove</button>';
+            html += '<button type="button" class="btn btn-danger btn-delete-participant" data-event="'+data.event_id+'" data-student="'+data.student_id+'">Remove</button>';
             return html;
           } 
         }
@@ -578,13 +578,14 @@
     });
 
     $(document).on('submit', '#form-add-participant', function() {
-       $.ajax({
+      var involvement = $("#select-involvement option:selected").val();
+      $.ajax({
             url: "students/events/add",
             type: "POST",
             data: $(this).serialize(),
             success: function(data) {
               if (data.success === true) {
-                alert("Participant Successfully Added!");
+                alert(involvement + " Successfully Added!");
                 location.reload();
               }
               else {
@@ -595,14 +596,14 @@
             return false;
     });
 
-    $(document).on('click', '.btn-delete', function() {
+    $(document).on('click', '.btn-delete-participant', function() {
       var confirm_alert = confirm("Are you sure you want to delete this participant?");
       if (confirm_alert == true) {
       //  var id  = $(this).attr('data-id');
        var event_id  = $(this).attr('data-event');
        var student_id  = $(this).attr('data-student');
        $.ajax({
-            url: "participant/delete",
+            url: "student/delete",
             type: "DELETE",
             data: {
               event_id: event_id,
