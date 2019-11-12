@@ -850,37 +850,35 @@
         }
       });
 
-            $(document).on('click', '.btn-socc-reject', function() {
-        var id = $(this).attr('data-id');
-        var notes = $('#notes').val();
-        var confirm_alert = confirm("Are you sure you want to return this event to the organizer for completion?");
-        if (confirm_alert == true) {
-          $.ajax({
-            url: "/events/reject",
-            type: "POST",
-            data: {
-              id: id,
-              notes: notes,
-              _token: "{{csrf_token()}}"
-            },
-            success: function(data) {
-              if (data.success === true) {
-                alert("Event Successfully Returned!");
-                location.reload();
-              }
-              else {
-                alert(data.error);
-              }
-            }
+      //   $(document).on('click', '.btn-socc-reject', function() {
+      //   var id = $(this).attr('data-id');
+      //   var notes = $('#notes').val();
+      //   var confirm_alert = confirm("Are you sure you want to return this event to the organizer for completion?");
+      //   if (confirm_alert == true) {
+      //     $.ajax({
+      //       url: "/events/reject",
+      //       type: "POST",
+      //       data: {
+      //         id: id,
+      //         notes: notes,
+      //         _token: "{{csrf_token()}}"
+      //       },
+      //       success: function(data) {
+      //         if (data.success === true) {
+      //           alert("Event Successfully Returned!");
+      //           location.reload();
+      //         }
+      //         else {
+      //           alert(data.error);
+      //         }
+      //       }
 
-          });
-        }
-      });
-
-  });
-
+      //     });
+      //   }
+      // });
 
   });
+});
  
 </script>
 @endsection

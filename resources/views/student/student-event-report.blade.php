@@ -69,10 +69,11 @@
                 </section>
 
                 <section id="events">
-                    @foreach($student->events as $event)
+                    
                         <div class="row mb-4">
                             <div class="col-md-12">
                                 <table class="table table-bordered">
+                                    <thead>
                                     <tr>
                                         <th width="10%" style="font-size: 11px;background-color: #FFEE58;"><b>Academic Year</b></th>
                                         <th width="10%" style="font-size: 11px;background-color: #FFEE58;"><b>Semester</b></th>
@@ -80,6 +81,10 @@
                                         <th width="25%" style="font-size: 11px;background-color: #FFEE58;"><b>Organized By</b></th>
                                         <th width="10%" style="font-size: 11px;background-color: #FFEE58;"><b>Involvement</b></th>
                                     </tr>
+                                    </thead>
+                                    
+                                    @foreach($student->events as $event)
+                                    <tbody>
                                     <tr>
                                         <td style="font-size: 10px;">{{ $event->date_start }}</td>
                                         <td style="font-size: 10px;">{{ $event->semester}}</td>
@@ -87,16 +92,19 @@
                                         <td style="font-size: 10px;">{{ $event->organization->name }}</td>
                                         <td style="font-size: 10px;">{{ $event->pivot->involvement }}</td>
                                     </tr>
+                                    @endforeach
+                                    
                                     <!-- <tr>
                                         <td><b>Description</b></td>
                                         <td colspan="3">
                                             {{ $event->semester }}
                                         </td>
                                     </tr> -->
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
-                    @endforeach
+                    
                 </section>
 
                 <section id="eventCount">
