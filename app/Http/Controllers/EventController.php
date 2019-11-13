@@ -289,6 +289,21 @@ class EventController extends Controller
     }
 
 
+    public function deleteEventParticipant(Request $request) {
+        $event_student = DB::table('event_student')->where('event_id', $request->event_id)
+        ->where('student_id', $request->student_id)->delete();
+
+        if($event_student) {
+            return response()->json([
+                'success' => true,
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+            'error' => 'Event Student not found'
+        ]);
+    }
+
     public function deleteEventSpeaker(Request $request) {
         $event_speaker = DB::table('event_speaker')->where('event_id', $request->event_id)
         ->where('speaker_id', $request->speaker_id)->delete();

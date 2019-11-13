@@ -170,46 +170,47 @@ class SpeakerController extends Controller
             }
         }
     }
-
-    public function removeFromEvent($speaker_id, $event_id)
-    {
-        $speaker = Speaker::find($speaker_id);
-        $event = Event::find($event_id);
-
-        if($speaker && $event)
-        {
-            if(!$speaker->events()->where('event.id', $event_id)->get()->count())
-            {
-                return response()->json([
-                    'error' => "Speaker with an ID of $speaker_id is currently not associated with the event with an ID of $event_id"
-                ]);
-            }
-            else 
-            {
-                $speaker->events()->detach($event_id);
-                return response()->json([
-                    'speaker' => Speaker::find($speaker_id),
-                    'event' => Event::find($event_id),
-                ]);
-            }
-        }
-        else 
-        {
-            $errors = [];
-            if(!$speaker)
-            {
-                array_push($errors, "Speaker with ID of $speaker_id not found");
-            }
-            if(!$event)
-            {
-                array_push($errors, "Event with ID of $event_id not found");
-            }
-            if($errors)
-            {
-                return response()->json([
-                    'errors' => $errors
-                ]);
-            }
-        }
-    }
 }
+
+//     public function removeFromEvent($speaker_id, $event_id)
+//     {
+//         $speaker = Speaker::find($speaker_id);
+//         $event = Event::find($event_id);
+
+//         if($speaker && $event)
+//         {
+//             if(!$speaker->events()->where('event.id', $event_id)->get()->count())
+//             {
+//                 return response()->json([
+//                     'error' => "Speaker with an ID of $speaker_id is currently not associated with the event with an ID of $event_id"
+//                 ]);
+//             }
+//             else 
+//             {
+//                 $speaker->events()->detach($event_id);
+//                 return response()->json([
+//                     'speaker' => Speaker::find($speaker_id),
+//                     'event' => Event::find($event_id),
+//                 ]);
+//             }
+//         }
+//         else 
+//         {
+//             $errors = [];
+//             if(!$speaker)
+//             {
+//                 array_push($errors, "Speaker with ID of $speaker_id not found");
+//             }
+//             if(!$event)
+//             {
+//                 array_push($errors, "Event with ID of $event_id not found");
+//             }
+//             if($errors)
+//             {
+//                 return response()->json([
+//                     'errors' => $errors
+//                 ]);
+//             }
+//         }
+//     }
+// }

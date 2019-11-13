@@ -417,7 +417,7 @@
               }
 
               else if (data.status == 5) {
-                status_name = "<span class='badge badge-reeval'>For Reevaluation</span>";
+                status_name = "<span class='badge badge-danger'>For Reevaluation</span>";
               }
               else if (data.status == 7) {
                 status_name = "<span class='badge badge-success'>OSA Approved</span>";
@@ -476,7 +476,7 @@
         "order": [[ 3, "desc" ]],
         columns: [
         { data: 'id'},
-        { data: 'student_id' },
+        { data: 'student_number' },
         { data: null,
             render: function ( data, type, row ) { 
             return data.first_name+" "+data.middle_initial+" "+data.last_name;
@@ -529,7 +529,7 @@
           responsive:true,
           "order": [[0, "desc" ]],
           columns: [
-          { data: 'student_id' },
+          { data: 'student_number' },
           { data: null,
             render: function ( data, type, row ) { 
             return data.first_name+" "+data.middle_initial+" "+data.last_name;

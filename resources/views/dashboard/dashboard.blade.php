@@ -599,11 +599,10 @@
     $(document).on('click', '.btn-delete-participant', function() {
       var confirm_alert = confirm("Are you sure you want to delete this participant?");
       if (confirm_alert == true) {
-      //  var id  = $(this).attr('data-id');
        var event_id  = $(this).attr('data-event');
-       var student_id  = $(this).attr('data-student');
+       var student_id = $(this).attr('data-student');
        $.ajax({
-            url: "student/delete",
+            url: "events/participant/delete",
             type: "DELETE",
             data: {
               event_id: event_id,
@@ -612,7 +611,7 @@
             },
             success: function(data) {
               if (data.success === true) {
-                alert("Participants Successfully Deleted!");
+                alert("Participant Successfully Deleted!");
                 location.reload();
               }
             }

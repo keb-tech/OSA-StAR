@@ -10,7 +10,7 @@ class Student extends Model
     protected $table = 'student';
 
     public $fillable = [
-        'student_id',
+        'student_number',
         'last_name',
         'first_name',
         'middle_initial',

@@ -36,7 +36,7 @@
                   <thead>
                     <tr>
                       <th class="hidden">ID</th>
-                      <th>Student ID</th>
+                      <th>Student Number</th>
                       <th>Student Name</th>
                       <th>College</th>
                       <th>Course</th>
@@ -47,7 +47,7 @@
                   <tfoot>
                     <tr>
                       <th class="hidden">ID</th>
-                      <th>Student ID</th>
+                      <th>Student Number</th>
                       <th>Student Name</th>
                       <th>College</th>
                       <th>Course</th>
@@ -86,8 +86,8 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                            <label>Student Id</label>
-                            <input type="text" class="form-control" name="student_id" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="ereserve_id" required>
+                            <label>Student Number</label>
+                            <input type="text" class="form-control" name="student_number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="ereserve_id" required>
                         </div>
                         <div class="form-group">
                             <label>First Name</label>
@@ -157,7 +157,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                             <label>Student No.</label>
-                            <input type="text" class="form-control" id="edit_student_id" name="student_id" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="ereserve_id" required>
+                            <input type="text" class="form-control" id="edit_student_number" name="student_number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="ereserve_id" required>
                         </div>
                         <div class="form-group">
                             <label>First Name</label>
@@ -224,7 +224,7 @@
         "order": [[ 3, "desc" ]],
         columns: [
         { data: 'id'},
-        { data: 'student_id' },
+        { data: 'student_number'},
         { data: null,
             render: function ( data, type, row ) { 
             return data.first_name+" "+data.middle_initial+" "+data.last_name;
@@ -267,7 +267,7 @@
               _token: "{{csrf_token()}}"
             },
             success: function(data) {
-              $('#edit_student_id').val(data.student_id);
+              $('#edit_student_number').val(data.student_number);
               $('#edit_first_name').val(data.first_name);
               $('#edit_mi').val(data.middle_initial);
               $('#edit_last_name').val(data.last_name);

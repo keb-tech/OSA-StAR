@@ -72,18 +72,18 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
-        $student = Student::where('student_id', $request->student_id)->first();
+        $student = Student::where('student_number', $request->student_number)->first();
         if($student)
         {
             return response()->json([
                 'success' => false,
-                'error' => "Student with the STUDENT_ID of {$request->input('student_id')} already exists",
+                'error' => "Student with the Student Number of {$request->input('student_number')} already exists",
             ]);
         }
         else 
         {
             $student = Student::create([
-                'student_id' => $request->input('student_id'),
+                'student_number' => $request->input('student_number'),
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name'),
                 'middle_initial' => $request->input('middle_initial'),
@@ -262,47 +262,47 @@ class StudentController extends Controller
         }
     }
 
-    public function removeFromEvent($student_id, $event_id)
-    {
-        $student = Student::find($student_id);
-        $event = Event::find($event_id);
+    // public function removeFromEvent($student_id, $event_id)
+    // {
+    //     $student = Student::find($student_id);
+    //     $event = Event::find($event_id);
 
-        if($student && $event)
-        {
-            if(!$student->events()->where('event.id', $event_id)->get()->count())
-            {
-                return response()->json([
-                    'error' => "Student with an ID of $student_id is currently not associated with the event with an ID of $event_id"
-                ]);
-            }
-            else 
-            {
-                $student->events()->detach($event_id);
-                return response()->json([
-                    'speaker' => Student::find($student_id),
-                    'event' => Event::find($event_id),
-                ]);
-            }
-        }
-        else 
-        {
-            $errors = [];
-            if(!$student)
-            {
-                array_push($errors, "Student with ID of $student_id not found");
-            }
-            if(!$event)
-            {
-                array_push($errors, "Event with ID of $event_id not found");
-            }
-            if($errors)
-            {
-                return response()->json([
-                    'errors' => $errors
-                ]);
-            }
-        }
-    }
+    //     if($student && $event)
+    //     {
+    //         if(!$student->events()->where('event.id', $event_id)->get()->count())
+    //         {
+    //             return response()->json([
+    //                 'error' => "Student with an ID of $student_id is currently not associated with the event with an ID of $event_id"
+    //             ]);
+    //         }
+    //         else 
+    //         {
+    //             $student->events()->detach($event_id);
+    //             return response()->json([
+    //                 'speaker' => Student::find($student_id),
+    //                 'event' => Event::find($event_id),
+    //             ]);
+    //         }
+    //     }
+    //     else 
+    //     {
+    //         $errors = [];
+    //         if(!$student)
+    //         {
+    //             array_push($errors, "Student with ID of $student_id not found");
+    //         }
+    //         if(!$event)
+    //         {
+    //             array_push($errors, "Event with ID of $event_id not found");
+    //         }
+    //         if($errors)
+    //         {
+    //             return response()->json([
+    //                 'errors' => $errors
+    //             ]);
+    //         }
+    //     }
+    // }
 
     public function generateReport(Request $request, $id)
     {

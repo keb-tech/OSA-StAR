@@ -43,13 +43,13 @@ Route::get('/speaker-list', function () {
     return view('dashboard.speaker-list');
 });
 
-Route::get('/student-participants', function () {
-    return view('dashboard.student-participants');
-});
+// Route::get('/student-participants', function () {
+//     return view('dashboard.student-participants');
+// });
 
-Route::get('/event-speakers', function () {
-    return view('dashboard.event-speaker');
-});
+// Route::get('/event-speakers', function () {
+//     return view('dashboard.event-speaker');
+// });
 
  Route::get('/administrator', 'UserController@showAdministratorPage');
 
@@ -83,6 +83,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('students/{id}/generate-report', 'StudentController@generateReport');
 
+
 /* Route::get('{student_id}/createReport', 'FileController@index'); */
 
 Route::post('register', 'UserController@register');
@@ -93,8 +94,8 @@ Route::post('logout', 'UserController@authenticate');
     Route::post('speakers/store', "SpeakerController@store");
     Route::post('speakers/update', "SpeakerController@update");
     Route::resource('speakers', 'SpeakerController')->middleware('org.user');
-    Route::post('speakers/{speaker_id}/events/{event_id}', "SpeakerController@assignToEvent");
-    Route::delete('speakers/{speaker_id}/events/{event_id}', "SpeakerController@removeFromEvent");
+    // Route::post('speakers/{speaker_id}/events/{event_id}', "SpeakerController@assignToEvent");
+    // Route::delete('speakers/{speaker_id}/events/{event_id}', "SpeakerController@removeFromEvent");
 
     Route::prefix('users')->group(function(){
         
@@ -116,7 +117,7 @@ Route::post('logout', 'UserController@authenticate');
 
         Route::post('/get-college-course', 'StudentController@getCollegeCourse');
         Route::post('/events/add', 'StudentController@assignToEvent')->middleware('org.user');
-        Route::delete('{student_id}/events/{event_id}', 'StudentController@removeFromEvent')->middleware('org.user');
+        // Route::delete('{student_id}/events/{event_id}', 'StudentController@removeFromEvent')->middleware('org.user');
     });
 
     Route::prefix('events')->group(function() {
@@ -132,6 +133,7 @@ Route::post('logout', 'UserController@authenticate');
 
         Route::post('/update', 'EventController@update');
 
+        Route::delete('participant/delete', 'EventController@deleteEventParticipant');
         Route::delete('speaker/delete', 'EventController@deleteEventSpeaker');
 
         Route::get('show/{$id}', 'EventController@show');
@@ -141,7 +143,7 @@ Route::post('logout', 'UserController@authenticate');
         Route::put('{id}', 'EventController@update')->middleware('org.user', 'event.owner');
         Route::post('store', 'EventController@store');
         Route::delete('delete', 'EventController@destroy');
-        Route::post('{event_id}/students/{student_id}', 'EventController@addStudent')->middleware('org.user');
+        // Route::post('{event_id}/students/{student_id}', 'EventController@addStudent')->middleware('org.user');
         Route::post('/speakers/add', 'EventController@addSpeaker')->middleware('org.user');
         Route::delete('{event_id}/students/{student_id}', 'EventController@removeStudent')->middleware('org.user');
         Route::delete('{event_id}/speakers/{speaker_id}', 'EventController@removeSpeaker')->middleware('org.user');

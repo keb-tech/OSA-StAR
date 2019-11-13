@@ -81,7 +81,7 @@
         "order": [[ 3, "desc" ]],
         columns: [
         { data: 'id'},
-        { data: 'student_id' },
+        { data: 'student_number' },
         { data: null,
             render: function ( data, type, row ) { 
             return data.first_name+" "+data.middle_initial+" "+data.last_name;
