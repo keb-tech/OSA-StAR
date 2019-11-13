@@ -16,8 +16,8 @@ class CreateOrganizationTable extends Migration
         Schema::create('organization', function (Blueprint $table) {
             $table->bigInteger('user_id')->primary()->unsigned();
             $table->string('name');
-            $table->string('type');
-            $table->string('college');
+            $table->string('type')->nullable();
+            $table->string('college')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
