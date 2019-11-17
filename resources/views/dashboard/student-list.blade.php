@@ -273,7 +273,6 @@
               $('#edit_last_name').val(data.last_name);
               $('.edit_college').val(data.college);
               $('.edit_course').html("<option value='"+data.course+"'>"+data.course+"</option>");
-              console.log(data);
             }
           });
 

@@ -76,6 +76,8 @@ Route::get('password', 'Auth\RegisterController@generatePassword');
 Route::get('user/get-new-password', 'UserController@generateNewPassword');
 Route::post('user/update-status', 'UserController@updateStatus');
 Route::post('user/update-ap-info', 'UserController@updateApInfo');
+Route::post('user/update', 'UserController@updateUserInfo');
+Route::post('user/updateUserOrganization', 'UserController@updateUserOrganization');
 
 Route::get('logout', 'Auth\LoginController@logout');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -132,7 +134,7 @@ Route::post('logout', 'UserController@authenticate');
         Route::post('get-post-event-speakers', 'EventController@getSpecificEventSpeakers');
 
         Route::post('/update', 'EventController@update');
-
+        
         Route::delete('participant/delete', 'EventController@deleteEventParticipant');
         Route::delete('speaker/delete', 'EventController@deleteEventSpeaker');
 

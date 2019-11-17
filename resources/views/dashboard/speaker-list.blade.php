@@ -79,6 +79,7 @@
               <div class="tab-pane fade show active" id="nav-add" role="tabpanel" aria-labelledby="nav-home-tab">
                 <form class="form-speaker">
                   <input type="hidden" name="_token" value="{{csrf_token()}}">
+                  
                   <div class="container my-2">
                     <div class="row">
                       <div class="col-md-12">

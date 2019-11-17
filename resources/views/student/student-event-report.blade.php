@@ -86,7 +86,7 @@
                                     @foreach($student->events as $event)
                                     <tbody>
                                     <tr>
-                                        <td style="font-size: 10px;">{{ $event->date_start }}</td>
+                                        <td style="font-size: 10px;">{{ $event->academic_year }}</td>
                                         <td style="font-size: 10px;">{{ $event->semester}}</td>
                                         <td style="font-size: 10px;">{{ $event->name }}</td>
                                         <td style="font-size: 10px;">{{ $event->organization->name }}</td>

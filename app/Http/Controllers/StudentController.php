@@ -103,16 +103,16 @@ class StudentController extends Controller
     {
         // $student = Student::where('student_id', $request->student_id)->first();
         $student = Student::find($request->id);
-         if($student->student_id == $request->student_id){
+         if($student->student_number == $request->student_number){
             $check_id = false;
         } 
         else{
-            $check_student = Student::where('student_id', $request->student_id)->first();
+            $check_student = Student::where('student_number', $request->student_number)->first();
             if (!empty($check_student)) {
                 $check_id = true;
             }
             else {
-                $chek_id = false;
+                $check_id = false;
             }
         }
 
@@ -120,13 +120,13 @@ class StudentController extends Controller
         {
             return response()->json([
                 'success' => false,
-                'error' => "Student with the STUDENT_ID of {$request->input('student_id')} already exists",
+                'error' => "Student with the Student Number of {$request->input('student_number')} already exists",
             ]);
         }
         else 
         {
             $student = Student::where('id', $request->id)->update([
-                'student_id' => $request->input('student_id'),
+                'student_number' => $request->input('student_number'),
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name'),
                 'middle_initial' => $request->input('middle_initial'),

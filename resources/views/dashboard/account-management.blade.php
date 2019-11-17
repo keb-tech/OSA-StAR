@@ -190,7 +190,7 @@
 
                         <div class="form-group text-right mt-4">
                           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-success btn-confirm-edit-account">Update</button>
+                          <button type="submit" class="btn btn-success btn-confirmedit">Update</button>
                         </div>
                       </div>
                     </div>
@@ -357,21 +357,38 @@
     });
 
     $(document).on('submit', '#form-edit-account', function() {
-       $.ajax({
-            url: "update",
+      var id  = $('.btn-confirmedit').attr('data-id'); 
+
+      $.ajax({
+            url: "user/updateUserOrganization",
             type: "POST",
-            data: $(this).serialize(),
+            data: $(this).serialize()+"&id="+id,
+            success: function(data) {
+              if (data.success === true) {
+                console.log("User Organization Successfully Updated");
+              }
+              else {
+                console.log("Something went wrong...");
+              }
+            }
+          });
+          
+      $.ajax({
+            url: "user/update",
+            type: "POST",
+            data: $(this).serialize()+"&id="+id,
             success: function(data) {
               if (data.success === true) {
                 alert("Account Successfully Updated!");
                 location.reload();
               }
               else {
-                alert("Something went wrong");
+                alert(data.error);
               }
             }
           });
-            return false;
+      
+          return false;
     });
 
     var chk;
@@ -422,16 +439,16 @@
               _token: "{{csrf_token()}}"
             },
             success: function(data) {
-              $('#update-role').val(data.role_id);
+              $('#update-role').val(data.role_id).change();
               $('#edit_first_name').val(data.first_name);
               $('#edit_last_name').val(data.last_name);
               $('#edit_email').val(data.email);
               $('#edit_organization_name').val(data.organization_name);
               $('#edit_student_number').val(data.student_number);
-              console.log(data);
             }
         });
       });
+      
     
   });
 </script>

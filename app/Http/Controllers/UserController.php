@@ -73,6 +73,52 @@ class UserController extends Controller
 
     }
 
+    public function updateUserInfo(Request $request)
+    {
+        // $user = User::where('email', $request->email)->first();
+        $user = User::find($request->id);
+         if($user->email == $request->email){
+            $check_email = false;
+        } 
+        else{
+            $check_user = User::where('email', $request->email)->first();
+            if (!empty($check_user)) {
+                $check_email = true;
+            }
+            else {
+                $check_email = false;
+            }
+        }
+
+        if($check_email === true)
+        {
+            return response()->json([
+                'success' => false,
+                'error' => "User with the registered email of {$request->input('email')} already exists",
+            ]);
+        }
+        else 
+        {
+            $user = User::where('id', $request->id)->update([
+                'email' => $request->input('email'),
+                'first_name' => $request->input('first_name'),
+                'last_name' => $request->input('last_name'),
+                'organization_name' => $request->input('organization_name'),
+                'student_number' => $request->input('student_number'),
+                'role_id' => $request->input('role_id')
+
+            ]);
+            return response()->json([
+                'success' => true,
+                'user' => $user
+            ]);
+        }
+
+        $user->save();
+
+    }
+
+
 
     public function register(Request $request)
     {
@@ -80,6 +126,7 @@ class UserController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'organization_name' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6',
         ]);
 
@@ -114,6 +161,7 @@ class UserController extends Controller
     {
         $user = new User();
         $user->email = $request->get('email');
+        $user->organization_name = $request->get('organization_name');
         $user->first_name = $request->get('first_name');
         $user->last_name = $request->get('last_name');
         $user->password = Hash::make($request->get('password'));
@@ -165,6 +213,50 @@ class UserController extends Controller
         /*         $sub_user->save(); */
         /*         break; */
         /* } */
+    }
+
+    // private static function updateSubUser(Request $request, $user_id)
+    // {
+    //     $role_id = $request->get('role_id');
+        
+    //     if($role_id == 1)
+    //     {
+    //         $sub_user = Organization::where('id', $request->user_id)->update([
+    //             'name' => $request->input('organization_name')
+    //             ]);
+                
+    //     }
+  
+    //     return response()->json([
+    //         'success' => true,
+    //         'sub_user' => $sub_user
+    //     ]);
+        
+    // }
+
+    public function updateUserOrganization(Request $request)
+    {
+        $role_id = $request->get('role_id');
+        if($role_id == 1)
+        {
+            $organization = Organization::where('user_id', $request->id)->update([
+                'name' => $request->input('organization_name')
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'organization' => $organization
+            ]);
+
+        }
+        else
+        {
+            return response()->json([
+                'error' => 'Something went wrong'
+            ]);
+        }
+           
+            
     }
 
     public function generateNewPassword() {

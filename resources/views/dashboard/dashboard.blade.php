@@ -12,6 +12,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
 <style>
 
 
@@ -227,6 +228,8 @@
                               <label>Academic Year</label>
                               <select type="select" id="select-academic-year" class="form-control" name="academic_year" required>
                               <option value="" selected disabled>Select Academic Year</option>
+                              <option value="2018-2019">2020-2021</option>
+                              <option value="2018-2019">2019-2020</option>
                               <option value="2018-2019">2018-2019</option>
                               <option value="2017-2018">2017-2018</option>
                             </select>
