@@ -161,6 +161,7 @@ Route::post('logout', 'UserController@authenticate');
     Route::group(['middleware' => 'auth', 'prefix' => 'auth'], function () {
         Route::post('/update-password', 'UserController@updatePassword');
         Route::post('/update-profile', 'Auth\UsersController@updateProfile');
+        Route::post('/reset-password', 'UserController@resetPassword');
     });
 
     Route::get('user', 'UserController@getAuthenticatedUser');

@@ -36,25 +36,27 @@
                   <thead>
                     <tr>
                       <th class="hidden">ID</th>
+                      <th style="width: 12.5%">Organization</th>
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>Email</th>
                       <th>Student No.</th>
                       <th>Role</th>
                       <th>Date Created</th>
-                      <th>Actions</th>
+                      <th style="width: 15.5%">Actions</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                       <th class="hidden">ID</th>
+                      <th style="width: 12.5%">Organization</th>
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>Email</th>
                       <th>Student No.</th>
                       <th>Role</th>
                       <th>Date Created</th>
-                      <th>Actions</th>
+                      <th style="width: 15.5%">Actions</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -69,7 +71,7 @@
       </div>
 
       <!-- Modal -->
-    <div class="modal fade" id="add-account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal fade" id="add-account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -121,7 +123,7 @@
                         </div>
                         <div class="form-group text-right mt-4">
                           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-success btn-confirm-add-account">Add</button>
+                          <button type="submit" class="btn btn-success btn-confirmreset">Add</button>
                         </div>
                       </div>
                     </div>
@@ -137,8 +139,8 @@
       </div>
     </div>
 
-        <!-- Edit Account -->
-        <div class="modal fade" id="edit-account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <!-- Edit Account -->
+    <div class="modal fade" id="edit-account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -206,6 +208,53 @@
       </div>
     </div>
 
+     <!-- Reset Password -->
+     <div class="modal fade" id="reset-password-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Reset Account's Password</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="nav-add" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                <form id="form-reset-password">
+                  <div class="container my-2">
+                    <div class="row">
+                      <div class="col-md-12">
+
+                        <div class="form-row">
+                          
+                          <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
+                          
+                        </div>
+                        
+                        <div class="form-group">
+                              <label>New Password</label>
+                              <input type="text" class="form-control" id="reset-password" name="password" readonly>
+                        </div>
+                        <div class="form-group text-right mt-4">
+                          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success btn-confirm-reset-password">Reset</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 @endsection
 @section('scripts')
 <script>  
@@ -236,6 +285,17 @@
       });
   }
 
+  function resetPassword() {
+    $.ajax({
+        type: 'GET',
+        url: '/user/get-new-password',
+        processData: false,
+        success: function(data) {
+        $('#reset-password').val(data.password);
+        }
+      });
+  }
+
   function appendOrganization() {
     var html = "";
 
@@ -260,9 +320,10 @@
           dataSrc: ''
         },
         responsive:true,
-        "order": [[ 6, "desc" ]],
+        "order": [[ 7, "desc" ]],
         columns: [
         { data: 'id'},
+        { data: 'organization_name', defaultContent: 'n/a' },
         { data: 'first_name' },
         { data: 'last_name' },
         { data: 'email'},
@@ -277,7 +338,8 @@
             } else {
               html += '<span class="switch switch-sm"> <input type="checkbox" class="switch btn-change-status" id="'+data.id+'" data-id="'+data.id+'" data-status="'+data.status+'"> <label for="'+data.id+'"></label></span>';
             }
-              html += "<button type='button' class='btn btn-primary btn-sm btn-edit-account' data-id='"+data.id+"' data-account='"+data.id+"'>Edit</button>";
+              html += "<button type='button' class='btn btn-primary btn-sm btn-edit-account mr-2' data-id='"+data.id+"' data-account='"+data.id+"'>Edit</button>";
+              html += "<button type='button' class='btn btn-secondary btn-sm btn-reset-password' data-id='"+data.id+"' data-account='"+data.id+"'><i class='fas fa-key'></i></button>";
             
             // <button type='button' class='btn btn-primary btn-sm btn-edit' data-id='"+data.id+"' data-account='"+data.id+"'>Edit</button> 
             // html += "<button class='btn btn-danger btn-sm btn-delete' data-id='"+data.id+"' data-account='"+data.id+"'>Remove</button>";
@@ -372,7 +434,7 @@
               }
             }
           });
-          
+
       $.ajax({
             url: "user/update",
             type: "POST",
@@ -450,6 +512,39 @@
       });
       
     
+    $(document).on('click', '.btn-reset-password', function() {
+      $('#reset-password-modal').modal('show');
+      resetPassword();
+    });
+
+    $(document).on('submit', '#form-reset-password', function() {
+      var id = $('.btn-confirmreset').attr('data-id', id); 
+      var confirm_alert = confirm("Are you sure you want to reset this account's password?");
+      if (confirm_alert == true) {
+       $.ajax({
+            url: "/auth/reset-password",
+            type: "POST",
+            data: $(this).serialize(),
+            
+            success: function(data) {
+              if (data.success === true) {
+                alert("Password successfully reset!");
+                location.reload();
+              }
+              else {
+                alert("Something went wrong");
+              }
+            }
+          });
+            return false;
+      }
+
+    });
+
+
   });
+
+  
+    
 </script>
 @endsection

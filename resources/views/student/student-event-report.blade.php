@@ -86,8 +86,8 @@
                                     @foreach($student->events as $event)
                                     <tbody>
                                     <tr>
-                                        <td style="font-size: 10px;">{{ $event->academic_year }}</td>
-                                        <td style="font-size: 10px;">{{ $event->semester}}</td>
+                                        <td style="font-size: 10px; width: 15.0%">{{ $event->academic_year }}</td>
+                                        <td style="font-size: 10px; width: 15.0%">{{ $event->semester}}</td>
                                         <td style="font-size: 10px;">{{ $event->name }}</td>
                                         <td style="font-size: 10px;">{{ $event->organization->name }}</td>
                                         <td style="font-size: 10px;">{{ $event->pivot->involvement }}</td>

@@ -243,10 +243,16 @@ class UserController extends Controller
                 'name' => $request->input('organization_name')
             ]);
 
+            // $organization = Organization::updateOrCreate(['user_id' => $request->id], [
+            //     'name' => $request->input('organization_name'),
+            //     'user_id' => $request->id
+            // ]);
+
             return response()->json([
                 'success' => true,
                 'organization' => $organization
             ]);
+
 
         }
         else
@@ -411,6 +417,28 @@ class UserController extends Controller
             "result" => $result,
             "message" => $message,
             "field" => $field,
+        );
+
+        return response()->json($response);
+    }
+
+    public function ResetPassword(Request $request)
+    {
+        $user = User::find($request->id);
+        $message = '';
+
+                $user->password = Hash::make($request->input('password'));
+
+                $user->save();
+                $status = true;
+                $result = "success";
+                $message = "You have successfully updated your password.";
+           
+
+        $response = array(
+            "success" => $status,
+            "result" => $result,
+            "message" => $message,
         );
 
         return response()->json($response);
