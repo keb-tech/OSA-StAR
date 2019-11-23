@@ -123,7 +123,7 @@
                         </div>
                         <div class="form-group text-right mt-4">
                           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-success btn-confirmreset">Add</button>
+                          <button type="submit" class="btn btn-success btn-confirm-add-account">Add</button>
                         </div>
                       </div>
                     </div>
@@ -230,6 +230,7 @@
                         <div class="form-row">
                           
                           <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
+                          <input type="hidden" id="id" name="id" value="">
                           
                         </div>
                         
@@ -239,7 +240,7 @@
                         </div>
                         <div class="form-group text-right mt-4">
                           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-success btn-confirm-reset-password">Reset</button>
+                          <button type="submit" class="btn btn-success btn-confirmreset">Reset</button>
                         </div>
                       </div>
                     </div>
@@ -513,14 +514,20 @@
       
     
     $(document).on('click', '.btn-reset-password', function() {
+      var id = $(this).attr('data-id');
+      $('#id').val(id);
+
       $('#reset-password-modal').modal('show');
       resetPassword();
     });
 
     $(document).on('submit', '#form-reset-password', function() {
-      var id = $('.btn-confirmreset').attr('data-id', id); 
+      // e.preventDefault();
       var confirm_alert = confirm("Are you sure you want to reset this account's password?");
       if (confirm_alert == true) {
+      // var id  = $(this).val('data-id');
+      var id = $('.btn-confirmreset').attr('data-id');
+      // var id = $('#id').val(id_value);
        $.ajax({
             url: "/auth/reset-password",
             type: "POST",
@@ -535,8 +542,12 @@
                 alert("Something went wrong");
               }
             }
+            
           });
             return false;
+      }
+      else {
+        return false;
       }
 
     });

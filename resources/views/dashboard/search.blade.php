@@ -34,7 +34,7 @@
                   <thead>
                     <tr>
                       <th class="hidden">ID</th>
-                      <th>Student ID</th>
+                      <th style="width: 15%">Student Number</th>
                       <th>Student Name</th>
                       <th>College</th>
                       <th>Course</th>
@@ -45,7 +45,7 @@
                   <tfoot>
                     <tr>
                       <th class="hidden">ID</th>
-                      <th>Student ID</th>
+                      <th style="width: 15%">Student Number</th>
                       <th>Student Name</th>
                       <th>College</th>
                       <th>Course</th>
