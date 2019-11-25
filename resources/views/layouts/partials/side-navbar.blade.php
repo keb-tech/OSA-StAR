@@ -17,7 +17,7 @@
         <li id="search" class="nav-item">
             <a class="nav-link" href="search">
               <i class="fas fa-fw fa-search"></i>
-              <span>Search</span></a>
+              <span>Search Student</span></a>
           </li>
         </li>
 

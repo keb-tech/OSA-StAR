@@ -431,7 +431,7 @@
                 console.log("User Organization Successfully Updated");
               }
               else {
-                console.log("Something went wrong...");
+                console.log("Organization field is not required for this update.");
               }
             }
           });
