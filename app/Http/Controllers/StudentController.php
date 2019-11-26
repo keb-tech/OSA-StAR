@@ -44,10 +44,10 @@ class StudentController extends Controller
     }
 
 
-    public function getEventParticipants()
+    public function getAssignedParticipants()
     {
         $event_students = DB::table('event_student')->join('student', 'event_student.student_id', '=', 'student.id')
-        ->join('event', 'event_student.event_id', '=', 'event.id')->where('event.status', '!=', '6')
+        ->join('event', 'event_student.event_id', '=', 'event.id')->where('event.status', '=', '1')->orWhere('event.status', '=', '4')
         ->where('event.organization_id', auth()->user()->id)->get();
 
         return response()->json($event_students);
@@ -260,6 +260,7 @@ class StudentController extends Controller
                 ]);
             }
         }
+
     }
 
     // public function removeFromEvent($student_id, $event_id)

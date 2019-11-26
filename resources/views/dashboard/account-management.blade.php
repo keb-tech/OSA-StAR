@@ -454,15 +454,16 @@
           return false;
     });
 
-    var chk;
     $(document).on('change', '.btn-change-status', function(e) {
-      e.preventDefault();
-      chk = $(this);
+      e.preventDefault(); 
+      var chk = $(this);
       var switch_status = $(this).attr('data-status');
       var account_status = (switch_status == 1) ? 0 : 1;
       var id  = $(this).attr('data-id');
       var confirm_alert = (switch_status == 1) ? confirm("Are you sure you want to deactivate this account?") : confirm("Are you sure you want to activate this account?");
         if (confirm_alert == true) {
+        
+
          $.ajax({
               url: "/user/update-status",
               type: "POST",
@@ -489,6 +490,7 @@
           }
         }
     });
+    
     
     $(document).on('click', '.btn-edit-account', function() {
       $('#edit-account-modal').modal('show');

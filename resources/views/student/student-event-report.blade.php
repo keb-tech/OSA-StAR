@@ -46,7 +46,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <b>Student No: </b>{{ $student->student_id }}
+                            <b>Student No: </b>{{ $student->student_number }}
                         </div>
                     </div>
                 </section>
@@ -76,7 +76,7 @@
                                     <thead>
                                     <tr>
                                         <th width="10%" style="font-size: 11px;background-color: #FFEE58;"><b>Academic Year</b></th>
-                                        <th width="10%" style="font-size: 11px;background-color: #FFEE58;"><b>Semester</b></th>
+                                        <th width="10%" style="font-size: 11px;background-color: #FFEE58;"><b>Date of Event</b></th>
                                         <th width="35%" style="font-size: 11px;background-color: #FFEE58;"><b>Event Title</b></th>
                                         <th width="25%" style="font-size: 11px;background-color: #FFEE58;"><b>Organized By</b></th>
                                         <th width="10%" style="font-size: 11px;background-color: #FFEE58;"><b>Involvement</b></th>
@@ -87,7 +87,7 @@
                                     <tbody>
                                     <tr>
                                         <td style="font-size: 10px; width: 15.0%">{{ $event->academic_year }}</td>
-                                        <td style="font-size: 10px; width: 15.0%">{{ $event->semester}}</td>
+                                        <td style="font-size: 10px; width: 15.0%">{{ $event->date_start}}</td>
                                         <td style="font-size: 10px;">{{ $event->name }}</td>
                                         <td style="font-size: 10px;">{{ $event->organization->name }}</td>
                                         <td style="font-size: 10px;">{{ $event->pivot->involvement }}</td>

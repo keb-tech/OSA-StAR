@@ -404,7 +404,7 @@
             render: function ( data, type, row ) { 
               var status_name = "";
               if (data.status == 1) {
-                status_name = "<span class='badge badge-primary'>Processing</span>";
+                status_name = "<span class='badge badge-primary'>Processing...</span>";
               } 
               else  if (data.status == 2) {
                 status_name = "<span class='badge badge-warning'>Submitted to SOCC</span>";
@@ -436,7 +436,11 @@
               @if(auth()->user()->role_id == 1)
               if (data.status == 4) {
                 html += '<button type="button" class="btn btn-info btn-edit-project" data-status="'+data.status+'" data-id="'+data.id+'">Edit</button> ';
+              } else if (data.status == 1) {
+                html += '<button type="button" class="btn btn-info btn-submit-report" data-status="'+data.status+'" data-id="'+data.id+'">Submit</button> ';
               }
+
+              
 
               @endif
               @if(auth()->user()->role_id == 3)
@@ -646,6 +650,33 @@
           });
             return false;
     });
+
+    $(document).on('click', '.btn-submit-report', function() {
+        var id = $(this).attr('data-id');
+        var status = $(this).attr('data-status');
+        var confirm_alert = confirm("Are you sure you want to submit this report? You cannot edit its contents unless SOCC returns it for completion.");
+        if (confirm_alert == true) {
+          $.ajax({
+            url: "/events/submit",
+            type: "POST",
+            data: {
+              id: id,
+              status: status,
+              _token: "{{csrf_token()}}"
+            },
+            success: function(data) {
+              if (data.success === true) {
+                alert("Event Successfully Submitted!");
+                location.reload();
+              }
+              else {
+                alert(data.error);
+              }
+            }
+
+          });
+        }
+      });
 
 
       $(document).on('click', '.btn-view-checklist', function() {

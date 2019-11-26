@@ -23,6 +23,6 @@ return [
     ],
 
     'templates' => [
-        'title_second' => 'Student Record Management System'
+        'title_second' => 'Student Activities Records System'
     ]
 ];

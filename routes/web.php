@@ -108,7 +108,7 @@ Route::post('logout', 'UserController@authenticate');
 
     Route::prefix('students')->group(function() {
         Route::get('', 'StudentController@index');
-        Route::get('get-event-participants', 'StudentController@getEventParticipants');
+        Route::get('get-assigned-participants', 'StudentController@getAssignedParticipants');
         Route::get('{id}', 'StudentController@show');
         Route::get('{id}/generate-report', 'StudentController@generateReport')->middleware('osa.user');
         Route::put('{id}', 'StudentController@update');
@@ -125,15 +125,16 @@ Route::post('logout', 'UserController@authenticate');
     Route::prefix('events')->group(function() {
         Route::get('get-post-event-reports', 'EventController@getPostEventReports');
         Route::get('all', 'EventController@index');
-        Route::get('get-all-events', 'EventController@getAllEvents');
+        Route::get('get-available-events', 'EventController@getAvailableEvents');
         Route::post('get-specific-event', 'EventController@getSpecificEvent');
-        Route::get('get-all-event-speakers', 'EventController@getAllEventSpeakers');
+        Route::get('get-assigned-speakers', 'EventController@getAssignedSpeakers');
         Route::post('get-all-speakers', 'EventController@getAllSpeakers');
 
         Route::post('get-post-event-students', 'EventController@getSpecificEventStudents');
         Route::post('get-post-event-speakers', 'EventController@getSpecificEventSpeakers');
 
         Route::post('/update', 'EventController@update');
+        Route::post('/submit', 'EventController@submitReport');
         
         Route::delete('participant/delete', 'EventController@deleteEventParticipant');
         Route::delete('speaker/delete', 'EventController@deleteEventSpeaker');

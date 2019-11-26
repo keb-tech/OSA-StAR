@@ -405,7 +405,7 @@
           render: function ( data, type, row ) { 
             var status_name = "";
             if (data.status == 1) {
-                status_name = "<span class='badge badge-primary'>Processing</span>";
+                status_name = "<span class='badge badge-primary'>Processing...</span>";
               } 
             else  if (data.status == 2) {
               status_name = "<span class='badge badge-warning'>Submitted to SOCC</span>";
@@ -481,9 +481,9 @@
 
  // Student Participants scripts
  @if(auth()->user()->role_id == 1) 
-  function getAllEvents() {
+  function getAvailableEvents() {
     $.ajax({
-            url: "events/get-all-events",
+            url: "events/get-available-events",
             type: "GET",
             success: function(data) {
               var html = '<option value="" selected disabled>Select Event</option>';
@@ -537,12 +537,12 @@
 
   var participants, projects;
   var token = "{{csrf_token()}}";
-    getAllEvents();
+    getAvailableEvents();
     getAllStudents();
     getAllSpeakers();
     participants = $("#table-participants").DataTable({
         ajax: {
-          url: "students/get-event-participants",
+          url: "students/get-assigned-participants",
           type: "GET",
           dataSrc: "", 
 
@@ -600,7 +600,7 @@
     });
 
     $(document).on('click', '.btn-delete-participant', function() {
-      var confirm_alert = confirm("Are you sure you want to delete this participant?");
+      var confirm_alert = confirm("Are you sure you want to remove this participant from the event?");
       if (confirm_alert == true) {
        var event_id  = $(this).attr('data-event');
        var student_id = $(this).attr('data-student');
@@ -628,7 +628,7 @@
     // Event  Speaker Scripts
       projects = $("#table-speakers").DataTable({
         ajax: {
-          url: "/events/get-all-event-speakers",
+          url: "/events/get-assigned-speakers",
           type: "GET",
           dataSrc: "", 
 
@@ -688,7 +688,7 @@
     });
 
     $(document).on('click', '.btn-delete-event-speaker', function() {
-      var confirm_alert = confirm("Are you sure you want to delete this event speaker?");
+      var confirm_alert = confirm("Are you sure you want to remove this speaker from the event?");
       if (confirm_alert == true) {
        var event_id  = $(this).attr('data-event');
        var speaker_id  = $(this).attr('data-speaker');
