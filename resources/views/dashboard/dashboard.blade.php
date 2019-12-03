@@ -10,8 +10,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
 <style>
 
@@ -213,35 +214,37 @@
                         <div class="form-row">
                           <div class="col-md-6">
                             <label>eReserve No.</label>
-                            <input type="text" class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="ereserve_id" maxlength="10" required>
+                            <input type="text" class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="ereserve_id" maxlength="5" required>
                           </div>
                           <div class="col-md-6">
                             <label>Start of Event Date</label>
                             <input type="date" class="form-control" id="date_start" name="date_start" required>
                           </div>
                         </div>
+
+                        <br>
+
                         <div class="form-group">
                             <label>Event Title</label>
                             <input type="text" class="form-control" name="name">
                         </div>        
-                        <div class="form-group">
+                        
+                        <div class="form-row">
+                          <div class="col-md-6">
                               <label>Academic Year</label>
-                              <select type="select" id="select-academic-year" class="form-control" name="academic_year" required>
-                              <option value="" selected disabled>Select Academic Year</option>
-                              <option value="2018-2019">2020-2021</option>
-                              <option value="2018-2019">2019-2020</option>
-                              <option value="2018-2019">2018-2019</option>
-                              <option value="2017-2018">2017-2018</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                              <label>Semester</label>
-                              <select type="select" id="select-semester" class="form-control" name="semester" required>
-                              <option value="" selected disabled>Select Semester</option>
-                              <option value="1st Semester">1st Semester</option>
-                              <option value="2nd Semester">2nd Semester</option>
-                            </select>
-                        </div>
+                              <input type="text" class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="academic_year" maxlength="9" placeholder="e.g. 2019-2020" required/>
+                            </div>
+                          <div class="col-md-6">
+                                <label>Term</label>
+                                <select type="select" id="select-semester" class="form-control" name="semester" required>
+                                <option value="" selected disabled>Select Term</option>
+                                <option value="1st Term">1st Term</option>
+                                <option value="2nd Term">2nd Term</option>
+                                <option value="Special Term">Special Term</option>
+                              </select>
+                          </div>
+                        </div class="form-row">
+                        <br>
                         <div class="form-group">
                               <label>Nature of Activity</label>
                               <select type="select" id="select-event-classification" class="form-control" name="classification" required>
@@ -456,6 +459,7 @@
             return false;
     });
 
+    $('input[name="academic_year"]').mask('0000-0000');
     // $(document).on('click', '.btn-delete', function() {
     //   var confirm_alert = confirm("Are you sure you want to delete this event?");
     //   if (confirm_alert == true) {
