@@ -23,8 +23,21 @@
     <link href="{{ asset('css/buttons.css') }}" rel="stylesheet">
 
     <style>
-      .login-logo {
-        height: 90px;
+    
+      @media screen and (max-width: 767px) {      
+      .login-logo{      
+        max-height: 100%;
+        max-width: 100%;
+        margin: auto;
+        display: block;
+        }
+      }
+
+      @media screen and (min-width: 992px) {      
+      .login-logo{      
+        max-height: 100%;
+        max-width: 100%;
+        } 
       }
 
       .login-topnav {
@@ -87,8 +100,8 @@
             <div class="form-title"><h4>Login</h4></div>
             <div class="form-group mt-3">
               <div class="form-label-group">
-                <input type="text" id="username" name="email" class="form-control" placeholder="Username" required="required" autofocus="autofocus">
-                <label for="username">Username</label>
+                <input type="text" id="user-email" name="email" class="form-control" placeholder="Email" required="required" autofocus="autofocus">
+                <label for="user-email">Email</label>
               </div>
             </div>
             <div class="form-group">
