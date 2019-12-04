@@ -8,6 +8,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
 @endsection
 @section('content')
@@ -137,88 +138,140 @@
       </div>
     </div>
 
-
- <!-- Edit Project Modal -->
-    <div class="modal fade" id="update-project-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+ <!-- Update Report Modal -->
+ <div class="modal hide fade" id="update-project-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Edit Event Details</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Update Event Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+
           <div class="modal-body">
-            <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-add" role="tabpanel" aria-labelledby="nav-home-tab">
+          
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-update-details-tab" data-toggle="tab" href="#nav-update-details" role="tab" aria-controls="nav-edit-details" aria-selected="true">Details</a>
+              <a class="nav-item nav-link" id="nav-update-stud-participants-tab" data-toggle="tab" href="#nav-update-stud-participants" role="tab" aria-controls="nav-edit-stud-participants" aria-selected="false">Student Participants</a>
+              <a class="nav-item nav-link" id="nav-update-speakers-tab" data-toggle="tab" href="#nav-update-speakers" role="tab" aria-controls="nav-edit-speakers" aria-selected="false">Speakers</a>
+            </div>
+          </nav>
 
-                <form id="form-edit-event">
-                   <input type="hidden" name="_token" value="{{csrf_token()}}">
-                  <div class="container my-2">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-row">
-                          <div class="col-md-6">
-                            <label>eReserve No.</label>
-                            <input type="text" class="form-control" id="edit_ereserve_id" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="ereserve_id" maxlength="10" required>
-                          </div>
-                          <div class="col-md-6">
-                            <label>Start of Event Date</label>
-                            <input type="date" class="form-control" id="edit_date_start" name="date_start" required>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Event Title</label>
-                            <input type="text" id="edit_event_name" class="form-control" name="name">
-                        </div>        
-                        <div class="form-group">
-                              <label>Academic Year</label>
-                              <select type="select" id="edit_academic_year" class="form-control" name="academic_year" required>
-                              <option value="" selected disabled>Select Academic Year</option>
-                              <option value="2018-2019">2018-2019</option>
-                              <option value="2017-2018">2017-2018</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                              <label>Semester</label>
-                              <select type="select" id="edit_semester" class="form-control" name="semester" required>
-                              <option value="" selected disabled>Select Semester</option>
-                              <option value="1st Semester">1st Semester</option>
-                              <option value="2nd Semester">2nd Semester</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                              <label>Event Classification</label>
-                              <select type="select" id="edit_classification" class="form-control" name="classification" required>
-                              <option value="" selected disabled>Select Event Classification</option>
-                              <option value="Seminar">Seminar</option>
-                              <option value="Workshop">Workshop</option>
-                            </select>
-                        </div>   
+          <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-update-details" role="tabpanel" aria-labelledby="nav-update-details-tab">
 
-                        <div class="form-group">
-                            <div class="form-group mt-4">
-                            <label>Evaluation Remarks:</label>
-                            <textarea class="form-control" id="edit_notes" name="notes" placeholder="There were no remarks made." readonly></textarea>
-                          </div>
-                        </div>   
-
-                        <div class="form-group text-right mt-4">
-                          <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                          <button type="submit" id="btn-update-event" class="btn btn-success">Update</button>
-                        </div>
-                      </div>
+          <form id="form-edit-event">
+            <input type="hidden" name="_token" value="{{csrf_token()}}">
+            <div class="container my-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-row">
+                    <div class="col-md-6">
+                      <label>eReserve No.</label>
+                      <input type="text" class="form-control" id="edit_ereserve_id" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="ereserve_id" maxlength="5" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label>Start of Event Date</label>
+                      <input type="date" class="form-control" id="edit_date_start" name="date_start" required>
                     </div>
                   </div>
-                </form>
+                  <div class="form-group">
+                      <label>Event Title</label>
+                      <input type="text" id="edit_event_name" class="form-control" name="name">
+                  </div>        
+                  <div class="form-row">
+                  <div class="col-md-6">
+                      <label>Academic Year</label>
+                      <input type="text" id="edit_academic_year" class="form-control" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="academic_year" maxlength="9" placeholder="e.g. 2019-2020" required/>
+                    </div>
+                  <div class="col-md-6">
+                        <label>Term</label>
+                        <select type="select" id="edit_semester" class="form-control" name="semester" required>
+                        <option value="" selected disabled>Select Term</option>
+                        <option value="1st Term">1st Term</option>
+                        <option value="2nd Term">2nd Term</option>
+                        <option value="Special Term">Special Term</option>
+                      </select>
+                  </div>
+                  </div class="form-row">
+                  <br>
+                  <div class="form-group">
+                        <label>Event Classification</label>
+                        <select type="select" id="edit_classification" class="form-control" name="classification" required>
+                        <option value="" selected disabled>Select Event Classification</option>
+                        <option value="Seminar">Seminar</option>
+                        <option value="Workshop">Workshop</option>
+                      </select>
+                  </div>   
+
+                  <div class="form-group">
+                      <div class="form-group mt-4">
+                      <label>Evaluation Remarks:</label>
+                      <textarea class="form-control" id="edit_notes" name="notes" placeholder="There were no remarks made." readonly></textarea>
+                    </div>
+                  </div>   
+
+                  <div class="form-group text-right mt-4">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                    <button type="submit" id="btn-update-event" class="btn btn-success">Update</button>
+                  </div>
+                </div>
               </div>
             </div>
+          </form>
+          </div>
+
+            <div class="tab-pane fade" id="nav-update-stud-participants" role="tabpanel" aria-labelledby="nav-update-stud-participants-tab">
+              <div class="table-responsive mt-3">
+                <table class="table table-bordered dt-responsive" id="table-update-stud-participants" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Student No.</th>
+                      <th>Student Name</th>
+                      <th>Involvement</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Student No.</th>
+                      <th>Student Name</th>
+                      <th>Involvement</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-update-speakers" role="tabpanel" aria-labelledby="nav-update-speakers-tab">
+              <div class="table-responsive mt-3">
+                <table class="table table-bordered dt-responsive" id="table-update-speakers" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Speaker Name</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Speaker Name</th>
+                      <th>Description</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            </div>
+          </div>
           </div>
         </div>
       </div>
-    </div>
-
-
 
  <!-- Modal -->
     <div class="modal hide fade" id="project-info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -283,14 +336,14 @@
                 <table class="table table-bordered dt-responsive" id="table-stud-participants" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Student ID</th>
+                      <th>Student No.</th>
                       <th>Student Name</th>
                       <th>Involvement</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Student ID</th>
+                      <th>Student No.</th>
                       <th>Student Name</th>
                       <th>Involvement</th>
                     </tr>
@@ -305,12 +358,14 @@
                 <table class="table table-bordered dt-responsive" id="table-speakers" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Speaker</th>
+                      <th>Speaker Name</th>
+                      <th>Description</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Speaker</th>
+                      <th>Speaker Name</th>
+                      <th>Description</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -465,6 +520,8 @@
           ]
       });
 
+
+
   //Student Participants
   var projects;
   var token = "{{csrf_token()}}";
@@ -499,8 +556,6 @@
   // Event  Speaker Scripts
   
 
-
-
       $(document).on('click', '.btn-export', function() {
         var orgid = $(this).attr('data-orgid');
         var email = $(this).attr('data-email');
@@ -510,6 +565,11 @@
 
 
       $('#project-info-modal').on('hidden.bs.modal', function () {
+        stud_participants.destroy();
+        speakers.destroy();
+      });
+
+      $('#update-project-modal').on('hidden.bs.modal', function () {
         stud_participants.destroy();
         speakers.destroy();
       });
@@ -562,8 +622,9 @@
           { data: null,
             render: function ( data, type, row ) { 
             return data.first_name+" "+data.last_name;
-            } 
           }
+          },
+            { data: 'description'},
           ]
       });
 
@@ -607,6 +668,54 @@
         var id = $(this).attr('data-id');
         $('#btn-update-event').attr('data-id', id);
         $('#update-project-modal').modal('show');
+
+        stud_participants = $("#table-update-stud-participants").DataTable({
+          ajax: {
+            url: "/events/get-post-event-students",
+            type: "POST",
+            dataSrc: "", 
+            data: {
+              id: id,
+              _token: "{{csrf_token()}}"
+            }
+
+          },
+          responsive:true,
+          "order": [[0, "desc" ]],
+          columns: [
+          { data: 'student_number' },
+          { data: null,
+            render: function ( data, type, row ) { 
+            return data.first_name+" "+data.middle_initial+" "+data.last_name;
+            } 
+          },
+          { data: 'involvement'},
+         
+          ]
+      });
+
+       speakers = $("#table-update-speakers").DataTable({
+          ajax: {
+            url: "/events/get-post-event-speakers",
+            type: "POST",
+            dataSrc: "", 
+            data: {
+              id: id,
+              _token: "{{csrf_token()}}"
+            }
+
+          },
+          responsive:true,
+          "order": [[0, "desc" ]],
+          columns: [
+          { data: null,
+            render: function ( data, type, row ) { 
+            return data.first_name+" "+data.last_name;
+            }
+          },
+            { data: 'description'},
+          ]
+      });
 
       $.ajax({
             url: "/events/get-specific-event",
@@ -882,35 +991,11 @@
         }
       });
 
-      //   $(document).on('click', '.btn-socc-reject', function() {
-      //   var id = $(this).attr('data-id');
-      //   var notes = $('#notes').val();
-      //   var confirm_alert = confirm("Are you sure you want to return this event to the organizer for completion?");
-      //   if (confirm_alert == true) {
-      //     $.ajax({
-      //       url: "/events/reject",
-      //       type: "POST",
-      //       data: {
-      //         id: id,
-      //         notes: notes,
-      //         _token: "{{csrf_token()}}"
-      //       },
-      //       success: function(data) {
-      //         if (data.success === true) {
-      //           alert("Event Successfully Returned!");
-      //           location.reload();
-      //         }
-      //         else {
-      //           alert(data.error);
-      //         }
-      //       }
-
-      //     });
-      //   }
-      // });
-
   });
 });
+
+  //Academic Year Masking
+  $('input[name="edit_academic_year"]').mask('0000-0000');
  
 </script>
 @endsection
