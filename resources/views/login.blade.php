@@ -195,7 +195,7 @@
 
               <p>
               3. What do I need to do in the Student Activities Records System? </p>
-              <p>After a seminar/workshop is concluded, the student organization must fill up the post-event form that includes details such as the event title, date, eReserve number, academic year and semester etc. The student organization should also submit the list of student participants and other needed hard copy of documents to the SOCC.
+              <p>After a seminar/workshop is concluded, the student organization must fill up the post-event form that includes details such as the event title, date, eReserve number, academic year and term etc. The student organization should also submit the list of student participants and other needed hard copy of documents to the SOCC.
               </p>
 
               <p>

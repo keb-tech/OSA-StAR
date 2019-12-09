@@ -18,7 +18,7 @@ class CreateEventTable extends Migration
             $table->bigIncrements('id');
             $table->integer('ereserve_id')->unique();
             $table->string('name');
-            $table->string('semester');
+            $table->string('term');
             $table->date('date_start');
             $table->text('description')->nullable();
             $table->string('classification');

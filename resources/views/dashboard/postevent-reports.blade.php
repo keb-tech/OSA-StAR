@@ -188,7 +188,7 @@
                     </div>
                   <div class="col-md-6">
                         <label>Term</label>
-                        <select type="select" id="edit_semester" class="form-control" name="semester" required>
+                        <select type="select" id="edit_term" class="form-control" name="term" required>
                         <option value="" selected disabled>Select Term</option>
                         <option value="1st Term">1st Term</option>
                         <option value="2nd Term">2nd Term</option>
@@ -312,8 +312,8 @@
                                 <input type="text" class="form-control" id="academic_year" name="academic_year" readonly>
                           </div>
                           <div class="form-group col-md-6">
-                                <label>Semester</label>
-                                <input type="text" class="form-control" id="semester" name="semester" readonly>
+                                <label>Term</label>
+                                <input type="text" class="form-control" id="term" name="term" readonly>
                           </div>
                           <div class="form-group col-md-6">
                                 <label>Nature of Activity</label>
@@ -655,7 +655,7 @@
               $('#event_name').val(data.name);
               $('#date_start').val(data.date_start);
               $('#academic_year').val(data.academic_year);
-              $('#semester').val(data.semester);
+              $('#term').val(data.term);
               $('#classification').val(data.classification);
               $('#date_submitted').val(data.updated_at);
 
@@ -729,7 +729,7 @@
               $('#edit_event_name').val(data.name);
               $('#edit_date_start').val(data.date_start);
               $('#edit_academic_year').val(data.academic_year);
-              $('#edit_semester').val(data.semester);
+              $('#edit_term').val(data.term);
               $('#edit_classification').val(data.classification);
               $('#edit_date_submitted').val(data.updated_at);
               $('#edit_notes').val(data.notes);

@@ -97,7 +97,7 @@
                                     <!-- <tr>
                                         <td><b>Description</b></td>
                                         <td colspan="3">
-                                            {{ $event->semester }}
+                                            {{ $student->term }}
                                         </td>
                                     </tr> -->
                                     </tbody>

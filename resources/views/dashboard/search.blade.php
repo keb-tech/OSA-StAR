@@ -89,7 +89,7 @@
          },
         {data: 'college'},
         {data: 'course'},
-        // { data: 'semester'},
+        // { data: 'term'},
         { data: 'created_at'},
         { data: null,
           render: function ( data, type, row ) { 

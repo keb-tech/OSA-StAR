@@ -74,7 +74,7 @@
                       <th>eReserve No.</th>
                       <th>Event Title</th>
                       <th>Academic Year</th>
-<!--                       <th>Semester</th> -->
+<!--                       <th>term</th> -->
                       <th>Date Submitted</th>
                       <th>Status</th>
                     </tr>
@@ -85,7 +85,7 @@
                       <th>eReserve No.</th>
                       <th>Event Title</th>
                       <th>Academic Year</th>
-<!--                       <th>Semester</th> -->
+<!--                       <th>term</th> -->
                       <th>Date Submitted</th>
                       <th>Status</th>
                     </tr>
@@ -164,7 +164,7 @@
                       <th>eReserve No.</th>
                       <th>Event Title</th>
                       <th>Academic Year</th>
-<!--                       <th>Semester</th> -->
+<!--                       <th>term</th> -->
                       <th>Date Submitted</th>
                       <th>Status</th>
                     </tr>
@@ -175,7 +175,7 @@
                       <th>eReserve No.</th>
                       <th>Event Title</th>
                       <th>Academic Year</th>
-<!--                       <th>Semester</th> -->
+<!--                       <th>term</th> -->
                       <th>Date Submitted</th>
                       <th>Status</th>
                     </tr>
@@ -236,7 +236,7 @@
                             </div>
                           <div class="col-md-6">
                                 <label>Term</label>
-                                <select type="select" id="select-semester" class="form-control" name="semester" required>
+                                <select type="select" id="select-term" class="form-control" name="term" required>
                                 <option value="" selected disabled>Select Term</option>
                                 <option value="1st Term">1st Term</option>
                                 <option value="2nd Term">2nd Term</option>
@@ -402,7 +402,7 @@
         { data: 'ereserve_id' },
         { data: 'name' },
         { data: 'academic_year'},
-        // { data: 'semester'},
+        // { data: 'term'},
         { data: 'created_at'},
         { data: null,
           render: function ( data, type, row ) { 
@@ -561,7 +561,7 @@
             return data.first_name+" "+data.middle_initial+" "+data.last_name;
           } 
          },
-        // { data: 'semester'},
+        // { data: 'term'},
         { data: 'involvement'},
         { data: 'created_at'},
         { data: null,
@@ -647,7 +647,7 @@
             return data.first_name+" "+data.last_name;
           } 
          },
-        // { data: 'semester'},
+        // { data: 'term'},
         { data: 'created_at'},
         { data: null,
           render: function ( data, type, row ) { 
