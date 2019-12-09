@@ -94,12 +94,13 @@
                             </select>
                         </div>
 
-                        <div class="form-group student-number-container hidden">
-                          <label>Student Number</label>
-                            <input type="text" class="form-control" id="student_number" name="student_number" required>
-                        </div>
                         <div class="organization-container hidden">
                         
+                        </div>
+
+                        <div class="form-group student-number-container hidden">
+                          <label>Student Number</label>
+                            <input type="text" class="form-control" id="student_number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="student_number" maxlength="10" required>
                         </div>
 
                         <div class="form-row">
@@ -155,23 +156,26 @@
 
                 <form id="form-edit-account">
                  <input type="hidden" name="_token" value="{{csrf_token()}}">
+                 <input type="hidden" id="hidden-role-id" name="role_id">
                   <div class="container my-2">
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
                             <label>Role</label>
-                            <select type="select" id="update-role" class="form-control edit_role update-role" name="role_id" required>
+                            <select type="select" id="update-role" class="form-control edit_role update-role" name="role_id" disabled required>
                             </select>
                         </div>
 
-                        <div class="form-group student-number-container hidden">
-                          <label>Student Number</label>
-                            <input type="text" class="form-control" id="edit_student_number" name="student_number" required>
-                        </div>
                         <div class="organization-container hidden">
                         <label>Organization Name</label>
                             <input type="text" class="form-control" id="edit_organization_name" name="organization_name" required>
                         </div>
+                        
+                        <div class="form-group student-number-container hidden">
+                          <label>Student Number</label>
+                            <input type="text" class="form-control" id="edit_student_number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="student_number" maxlength="10" required>
+                        </div>
+                        
 
                         <div class="form-row">
                           <div class="col-md-6">
@@ -328,7 +332,7 @@
         { data: 'first_name' },
         { data: 'last_name' },
         { data: 'email'},
-        { data: 'student_number'},
+        { data: 'student_number', defaultContent: 'n/a' },
         { data: 'role.name'},
         { data: 'created_at'},
         { data: null,
@@ -505,6 +509,7 @@
             },
             success: function(data) {
               $('#update-role').val(data.role_id).change();
+              $('#hidden-role-id').val(data.role_id);
               $('#edit_first_name').val(data.first_name);
               $('#edit_last_name').val(data.last_name);
               $('#edit_email').val(data.email);

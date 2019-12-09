@@ -153,7 +153,8 @@ class UserController extends Controller
 
 
     public function getAllRoles() {
-        $roles = Role::all();
+        // $roles = Role::all();
+        $roles = Role::where('id', '!=', '3')->get();
         return response()->json($roles);
     }
 
@@ -371,8 +372,6 @@ class UserController extends Controller
 
             return view('dashboard.administrator', compact('ap'));
     }
-
-    
 
 
     public function getArchivedUsers() {

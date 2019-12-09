@@ -136,8 +136,8 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <sup>1</sup> You may contact the Office for Student Affairs, University of Santo Tomas to verify the authenticity of this 
-                            certification by providing the student number at the end of this certificate.<br/>
+                            <sup>1</sup> You may contact the Office for Student Affairs, University of Santo Tomas, to verify the authenticity of this 
+                            certification by providing the student number written on this certificate.<br/>
 
                             <br/>
 
