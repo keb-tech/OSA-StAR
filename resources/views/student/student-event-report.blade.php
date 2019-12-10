@@ -41,7 +41,7 @@
             <section id="studentInfo">
                     <div class="row">
                         <div class="col-md-4">
-                            <b>Name: </b>{{ $student->last_name }}, {{ $student->first_name }}
+                            <b>Name: </b>{{ $student->last_name }}, {{ $student->first_name }} {{ $student->middle_initial }}.
                         </div>
                     </div>
                     <div class="row">

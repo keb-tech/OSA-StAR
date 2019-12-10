@@ -5,9 +5,31 @@
 
 @section('styles')
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.2/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/r-2.2.2/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<style>
+
+
+.select1-container, .select2-container, #select-student, #select-speaker {
+  width: 100%!important;
+}
+
+.select1-container .select1-selection--single, .select2-container .select2-selection--single{
+    height:34px !important;
+
+}
+.select1-container--default .select1-selection--single, .select2-container--default .select2-selection--single{
+     border: 1px solid #ccc !important; 
+     border-radius: 0px !important; 
+}
+
+</style>
+
 
 @endsection
 @section('content')
@@ -70,7 +92,7 @@
         <!-- /.container-fluid -->
       </div>
 
-      <!-- Modal -->
+      <!-- Add Account Modal -->
       <div class="modal fade" id="add-account-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -99,21 +121,28 @@
                         </div>
 
                         <div class="form-group student-number-container hidden">
-                          <label>Student Number</label>
-                            <input type="text" class="form-control" id="student_number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="student_number" maxlength="10" required>
+                            <input type="hidden" class="form-control" id="student_number" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="student_number" maxlength="10" required>
                         </div>
 
                         <div class="form-row">
                           <div class="col-md-6">
-                            <label>First name</label>
-                            <input type="text" class="form-control" name="first_name" required>
+                            <input type="hidden" class="form-control" name="first_name" required>
                           </div>
+
                           <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
-                          <div class="col-md-6">
-                            <label>Last Name</label>
-                            <input type="text" class="form-control" name="last_name" required>
+
+                          <div class="col-md-6">            
+                            <input type="hidden" class="form-control" name="last_name" required>
                           </div>
                         </div>
+
+                        <div class="form-group">
+                            <label>Account User</label>
+                            <select type="select" id="select-student" class="form-control select2 select-student" name="student" required>
+                              <option value="" selected disabled>Select Student</option>
+                            </select>
+                        </div>
+
                         <div class="form-group">
                               <label>Email</label>
                               <input type="email" class="form-control" id="email" name="email">
@@ -182,12 +211,22 @@
                             <label>First name</label>
                             <input type="text" class="form-control" id="edit_first_name" name="first_name" required>
                           </div>
+
                           <input type="hidden" id="token" name="_token" value="{{csrf_token()}}">
+
                           <div class="col-md-6">
                             <label>Last Name</label>
                             <input type="text" class="form-control" id="edit_last_name" name="last_name" required>
                           </div>
+
                         </div>
+
+                        <!-- <div class="form-group">
+                            <label>Account User</label>
+                            <select type="select" id="update-student" class="form-control select2 update-student" name="student">
+                              <option value="" selected disabled>Select Student</option>
+                            </select>
+                        </div> -->
 
                         <div class="form-group">
                               <label>Email</label>
@@ -301,6 +340,66 @@
       });
   }
 
+  function splitName(str) {
+    var r = str.split("  ");
+    return {
+      "first_name": r[0],
+      "last_name": r[2],
+      "student_number": r[4]
+    };
+  }
+
+  //Students list dropdown list
+  function getAllStudents() {
+    $.ajax({
+      url: "students",
+      type: "GET",
+      success: function(data) {
+        $('#select-student').html("");
+        $("<option>").val("").prop({
+          selected: true,
+          disabled: true
+        }).appendTo($('#select-student'));
+        $.each(data, function(x, y) {
+          $("<option>").val(y.id).html(y.first_name + "  " + y.middle_initial + "  " + y.last_name + "  " + "(" + "  " + y.student_number + "  " + ")").appendTo($('#select-student'));
+        });
+      }
+    });
+  }
+
+  $('#select-student').change(function() {
+    var y = splitName($("option:selected", this).text().trim());
+    $("input[type='hidden'][name='first_name']").val(y.first_name);
+    $("input[type='hidden'][name='last_name']").val(y.last_name);
+    $("input[type='hidden'][name='student_number']").val(y.student_number);
+  });
+
+  //Update Students list dropdown list
+  function getUpdateAllStudents() {
+    $.ajax({
+      url: "students",
+      type: "GET",
+      success: function(data) {
+        $('#update-student').html("");
+        $("<option>").val("").prop({
+          selected: true,
+          disabled: true
+        }).appendTo($('#update-student'));
+        $.each(data, function(x, y) {
+          $("<option>").val(y.id).html(y.first_name + "  " + y.middle_initial + "  " + y.last_name + "  " + "(" + "  " + y.student_number + "  " + ")").appendTo($('#update-student'));
+        });
+      }
+    });
+  }
+
+  $('#update-student').change(function() {
+    var y = splitName($("option:selected", this).text().trim());
+    $("input[type='hidden'][name='first_name']").val(y.first_name);
+    $("input[type='hidden'][name='last_name']").val(y.last_name);
+    $("input[type='hidden'][name='student_number']").val(y.student_number);
+  });
+  
+
   function appendOrganization() {
     var html = "";
 
@@ -359,8 +458,16 @@
         ]
     });
 
+    //For select2 (Dropdown with search)
+    $('.select2').each(function () {
+          $(this).select2({
+            dropdownParent: $(this).parent()
+        });
+    });
+
     $(document).on('click', '#btn-add-account', function() {
       $('#add-account-modal').modal('show');
+      getAllStudents();
       getNewPassword();
     });
 
@@ -498,6 +605,8 @@
     
     $(document).on('click', '.btn-edit-account', function() {
       $('#edit-account-modal').modal('show');
+      getUpdateAllStudents();
+
       var id  = $(this).attr('data-id');
       $('.btn-confirmedit').attr('data-id', id);
       $.ajax({
@@ -515,6 +624,7 @@
               $('#edit_email').val(data.email);
               $('#edit_organization_name').val(data.organization_name);
               $('#edit_student_number').val(data.student_number);
+              // $('#update-student').val(data.first_name);
             }
         });
       });

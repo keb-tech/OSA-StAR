@@ -192,7 +192,7 @@
         <!-- /.container-fluid -->
       </div>
 
-      <!-- Modal -->
+      <!-- Add Event Modal -->
     <div class="modal fade" id="add-project-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -252,7 +252,17 @@
                               <option value="Seminar">Seminar</option>
                               <option value="Workshop">Workshop</option>
                             </select>
-                        </div>                        <div class="form-group text-right mt-4">
+                        </div>
+
+                        <div class="form-group">
+                            <hr>
+                            <p> After adding the event, please add participants and speakers through the
+                            <u>Student Participants</u> and <u>Event Speakers</u> tab. <br>
+                            Upon completion, proceed to the Post-event Reports section to submit the completed report. </p>
+                            <hr>
+                        </div>   
+
+                          <div class="form-group text-right mt-4">
                           <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                           <button type="submit" class="btn btn-success btn-add">Add</button>
                         </div>
@@ -604,7 +614,7 @@
     });
 
     $(document).on('click', '.btn-delete-participant', function() {
-      var confirm_alert = confirm("Are you sure you want to remove this participant from the event?");
+      var confirm_alert = confirm("Are you sure you want to remove this student from the event?");
       if (confirm_alert == true) {
        var event_id  = $(this).attr('data-event');
        var student_id = $(this).attr('data-student');
@@ -618,7 +628,7 @@
             },
             success: function(data) {
               if (data.success === true) {
-                alert("Participant Successfully Deleted!");
+                alert("Student Successfully Deleted!");
                 location.reload();
               }
             }
