@@ -541,7 +541,12 @@
         { data: 'student_number' },
         { data: null,
             render: function ( data, type, row ) { 
+            if(data.middle_initial != null)
+            {
             return data.first_name+" "+data.middle_initial+" "+data.last_name;
+            } else {
+            return data.first_name+" "+data.last_name;
+            }
           } 
          },
         {data: 'involvement'}
@@ -597,8 +602,13 @@
           { data: 'student_number' },
           { data: null,
             render: function ( data, type, row ) { 
+            if(data.middle_initial != null)
+            {
             return data.first_name+" "+data.middle_initial+" "+data.last_name;
-            } 
+            } else {
+            return data.first_name+" "+data.last_name;
+            }
+          } 
           },
           { data: 'involvement'},
          

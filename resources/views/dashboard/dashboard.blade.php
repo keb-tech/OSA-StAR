@@ -517,7 +517,14 @@
             success: function(data) {
               var html = '<option value="" selected disabled>Select Student</option>';
               $.each(data, function(x,y) {
-                  html += '<option value="'+y.id+'">'+y.first_name+ " "+y.middle_initial+" "+y.last_name+'</option>';
+
+                if(data.middle_initial != null)
+                {
+                html += '<option value="'+y.id+'">'+y.first_name+ " "+y.middle_initial+" "+y.last_name+'</option>';
+                } else {
+                html += '<option value="'+y.id+'">'+y.first_name+ " "+y.last_name+'</option>';
+                }
+                  
               });
               $('#select-student').html(html);
             }
@@ -567,8 +574,13 @@
         { data: 'id'},
         { data: 'name' },
         { data: null,
-            render: function ( data, type, row ) { 
+          render: function ( data, type, row ) { 
+            if(data.middle_initial != null)
+            {
             return data.first_name+" "+data.middle_initial+" "+data.last_name;
+            } else {
+            return data.first_name+" "+data.last_name;
+            }
           } 
          },
         // { data: 'term'},
